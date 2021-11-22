@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import Navigator from "./Navigator";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
