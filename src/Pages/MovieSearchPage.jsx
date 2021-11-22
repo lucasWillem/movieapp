@@ -1,13 +1,13 @@
 import React from "react";
 import ScreenContainer from "../Components/ScreenContainer";
 import SearchForm from "../Components/SearchForm";
-import FavouriteMoviesContainer from "../Components/FavouriteMoviesContainer";
+import FavouriteMoviesList from "../Components/FavouriteMoviesList";
 
 function MovieSearchPage(props) {
   return (
     <ScreenContainer>
       <SearchForm />
-      <FavouriteMoviesContainer />
+      <FavouriteMoviesList />
     </ScreenContainer>
   );
 }
