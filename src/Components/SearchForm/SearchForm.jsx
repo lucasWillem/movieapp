@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
+import { useStoreActions } from "easy-peasy";
 
 import {
   InputGroup,
@@ -12,6 +14,10 @@ import {
 
 function SearchForm({ placeholderText }) {
   const [searchText, setSearchText] = useState("");
+
+  const saveMovieResults = useStoreActions(
+    (actions) => actions.saveMovieResults
+  );
 
   return (
     <Container fluid>
@@ -37,7 +43,7 @@ function SearchForm({ placeholderText }) {
             variant="outline-dark"
             type="submit"
             onClick={(e) => {
-              console.log(e);
+              saveMovieResults(searchText);
             }}
           >
             Search
