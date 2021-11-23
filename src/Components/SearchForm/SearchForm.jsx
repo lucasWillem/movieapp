@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { useStoreActions } from "easy-peasy";
@@ -42,7 +42,9 @@ function SearchForm({ placeholderText }) {
           <Button
             variant="outline-dark"
             type="submit"
+            disabled={searchText.trim().length === 0}
             onClick={(e) => {
+              e.preventDefault();
               saveMovieResults(searchText);
             }}
           >
