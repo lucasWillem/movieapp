@@ -1,13 +1,23 @@
 import React from "react";
 import ScreenContainer from "../Components/ScreenContainer";
 import SearchForm from "../Components/SearchForm";
-import FavouriteMoviesList from "../Components/FavouriteMoviesList";
+import MoviesList from "../Components/MoviesList";
+
+import { Stack, Container, Row, Col } from "react-bootstrap";
 
 function MovieSearchPage(props) {
   return (
     <ScreenContainer>
-      <SearchForm />
-      <FavouriteMoviesList />
+      <Container>
+        <Row>
+          <Col>
+            <Stack gap={5}>
+              <SearchForm />
+              {/* <MoviesList variant={'favouriteMovies'} movies={movieSearchResults} /> */}
+            </Stack>
+          </Col>
+        </Row>
+      </Container>
     </ScreenContainer>
   );
 }
