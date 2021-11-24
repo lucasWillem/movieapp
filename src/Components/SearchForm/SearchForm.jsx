@@ -111,9 +111,9 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
               {determineMovieDisplayComponent()}
             </Col>
             <Col md={5} sm={5} xs={5}>
-              {movieSearchResults && movieSearchResults.length > 0 && (
-                <ToggleControl />
-              )}
+              {movieSearchResults &&
+                movieSearchResults.length > 0 &&
+                !favouriteMoviesIsVisible && <ToggleControl />}
             </Col>
           </Row>
         </Stack>
