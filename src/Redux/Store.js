@@ -25,15 +25,27 @@ const store = createStore({
       .then((result) => {
         actions.addMovieResults(result.Search);
         actions.setLoaderVisibility(false);
+
+        if (result.Response === "False") {
+          throw new Error(result.Error);
+        }
       })
       .catch((err) => {
-        console.error(err);
         actions.setLoaderVisibility(false);
+        actions.setAlertConfiguration({
+          isVisible: true,
+          message: err.message,
+        });
       });
   }),
   isLoaderVisible: false,
   setLoaderVisibility: action((state, payload) => {
     state.isLoaderVisible = payload;
+  }),
+
+  alertConfiguration: { isVisible: false, message: "" },
+  setAlertConfiguration: action((state, payload) => {
+    state.alertConfiguration = payload;
   }),
 });
 
