@@ -63,6 +63,10 @@ const store = createStore({
       (faveMovie) => faveMovie.imdbID !== payload.imdbID
     );
   }),
+  movieListVariation: "card",
+  setMovieListVariation: action((state, payload) => {
+    state.movieListVariation = payload;
+  }),
   favouriteMoviesIsVisible: false,
   setFavouriteMoviesVisibility: action((state, payload) => {
     state.favouriteMoviesIsVisible = payload;

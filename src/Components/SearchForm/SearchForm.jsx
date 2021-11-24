@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../MoviesList";
+import ToggleControl from "../ToggleControl";
+import MovieTable from "../MovieTable";
+
+import FavouriteMovies from "../FavouriteMovies";
 
 import { useStoreActions, useStoreState } from "easy-peasy";
 
@@ -21,57 +25,99 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
     (actions) => actions.saveMovieResults
   );
 
+  const setFavouriteMoviesVisibility = useStoreActions(
+    (actions) => actions.setFavouriteMoviesVisibility
+  );
+
   const movieSearchResults = useStoreState((state) => state.movieResults);
+  const movieListVariation = useStoreState((state) => state.movieListVariation);
+  const favouriteMoviesIsVisible = useStoreState(
+    (state) => state.favouriteMoviesIsVisible
+  );
+
+  function determineMovieDisplayComponent() {
+    if (favouriteMoviesIsVisible) {
+      return <FavouriteMovies />;
+    }
+
+    if (!favouriteMoviesIsVisible && movieListVariation === "card") {
+      return <MoviesList movies={movieSearchResults} variant="searchResults" />;
+    }
+
+    if (!favouriteMoviesIsVisible && movieListVariation === "list") {
+      return <MovieTable movies={movieSearchResults} />;
+    }
+  }
 
   return (
     <Container>
-      <Row>
-        <Col>
-          <Form>
-            <Stack gap={4}>
-              <Row>
-                <Col>
-                  <h4>{formTitle}</h4>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={9} sm={9} xs={9}>
-                  <Form.Group controlId="movieSeachText">
-                    <FormControl
-                      onChange={(e) => {
-                        setSearchText(e.target.value);
-                      }}
-                      placeholder={placeholderText}
-                      value={searchText}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={3} sm={3} xs={3}>
+      <Form>
+        <Stack gap={4}>
+          <Row>
+            <Col>
+              <h4>{formTitle}</h4>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={9} sm={9} xs={9}>
+              <Form.Group controlId="movieSeachText">
+                <FormControl
+                  onChange={(e) => {
+                    setSearchText(e.target.value);
+                  }}
+                  placeholder={placeholderText}
+                  value={searchText}
+                />
+              </Form.Group>
+            </Col>
+            <Col md={3} sm={3} xs={3}>
+              <Stack direction="horizontal" gap={2}>
+                <Button
+                  variant="outline-dark"
+                  type="submit"
+                  disabled={searchText.trim().length === 0}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    saveMovieResults(searchText);
+                  }}
+                >
+                  {actionButtonText}
+                </Button>
+
+                {favouriteMoviesIsVisible ? (
                   <Button
-                    variant="outline-dark"
-                    type="submit"
-                    disabled={searchText.trim().length === 0}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      saveMovieResults(searchText);
+                    variant="outline-primary"
+                    onClick={() => {
+                      setFavouriteMoviesVisibility(false);
                     }}
                   >
-                    {actionButtonText}
+                    Hide Favourites
                   </Button>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <MoviesList
-                    movies={movieSearchResults}
-                    variant="searchResults"
-                  />
-                </Col>
-              </Row>
-            </Stack>
-          </Form>
-        </Col>
-      </Row>
+                ) : (
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => {
+                      setFavouriteMoviesVisibility(true);
+                    }}
+                  >
+                    Show Favourites
+                  </Button>
+                )}
+              </Stack>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={7} sm={7} xs={7}>
+              {determineMovieDisplayComponent()}
+            </Col>
+            <Col md={5} sm={5} xs={5}>
+              {movieSearchResults && movieSearchResults.length > 0 && (
+                <ToggleControl />
+              )}
+            </Col>
+          </Row>
+        </Stack>
+      </Form>
     </Container>
   );
 }
