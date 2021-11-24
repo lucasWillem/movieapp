@@ -20,7 +20,9 @@ function MovieListItem({ movie }) {
             />
           </Col>
           <Col md={3} sm={3} xs={3}>
-            <p>{movie.Title}</p>
+            <p>
+              {movie.Title} ({movie.Year})
+            </p>
           </Col>
         </Row>
       </ListGroup.Item>
