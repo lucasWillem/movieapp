@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../MoviesList";
 
-import { useStoreActions } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 import {
   Form,
@@ -14,17 +14,14 @@ import {
   Stack,
 } from "react-bootstrap";
 
-function SearchForm({
-  placeholderText,
-  actionButtonText,
-  formTitle,
-  movieSearchResults,
-}) {
+function SearchForm({ placeholderText, actionButtonText, formTitle }) {
   const [searchText, setSearchText] = useState("");
 
   const saveMovieResults = useStoreActions(
     (actions) => actions.saveMovieResults
   );
+
+  const movieSearchResults = useStoreState((state) => state.movieResults);
 
   return (
     <Container>
