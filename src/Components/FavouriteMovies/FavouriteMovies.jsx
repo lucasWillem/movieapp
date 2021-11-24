@@ -4,13 +4,17 @@ import MoviesList from "../MoviesList";
 
 import { useStoreState } from "easy-peasy";
 
+import { Container, Row } from "react-bootstrap";
+
 function FavouriteMovies(props) {
   const favouriteMovies = useStoreState((state) => state.favouriteMovies);
 
   return (
-    <div>
-      <MoviesList movies={favouriteMovies} variant="favourites" />
-    </div>
+    <Container>
+      <Row>
+        <MoviesList movies={favouriteMovies} variant="favourites" />
+      </Row>
+    </Container>
   );
 }
 
