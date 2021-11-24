@@ -2,16 +2,22 @@ import React from "react";
 import { ListGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+import { useStoreActions } from "easy-peasy";
+
 import imageNotFound from "../../../assets/images/image-not-found.png";
 
-import { Row, Col, Image } from "react-bootstrap";
+import { Row, Col, Image, Button, Stack } from "react-bootstrap";
 
 function MovieListItem({ movie }) {
+  const addToFavouriteMovies = useStoreActions(
+    (actions) => actions.addToFavouriteMovies
+  );
+
   return (
     <ListGroup>
       <ListGroup.Item>
         <Row>
-          <Col md={2} sm={2} xs={2}>
+          <Col>
             <Image
               alt={movie.Title}
               src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
@@ -19,11 +25,22 @@ function MovieListItem({ movie }) {
               fluid
             />
           </Col>
-          <Col md={3} sm={3} xs={3}>
-            <p>
+          <Col>
+            <h3>
               {movie.Title} ({movie.Year})
-            </p>
+            </h3>
           </Col>
+          <Row lg={4} style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                addToFavouriteMovies(movie);
+              }}
+              variant="outline-dark"
+            >
+              Add To Favourites
+            </Button>
+          </Row>
         </Row>
       </ListGroup.Item>
     </ListGroup>

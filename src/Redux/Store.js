@@ -47,6 +47,11 @@ const store = createStore({
   setAlertConfiguration: action((state, payload) => {
     state.alertConfiguration = payload;
   }),
+
+  favouriteMovies: [],
+  addToFavouriteMovies: action((state, payload) => {
+    state.favouriteMovies.push(payload);
+  }),
 });
 
 export { store };
