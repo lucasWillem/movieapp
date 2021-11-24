@@ -24,9 +24,10 @@ function MoviesList({ actionButtonText, movies }) {
         </Col> */}
         <Col md={9} sm={9} xs={9}>
           <Stack gap={3}>
-            {movies.map((movie) => (
-              <MovieListItem movie={movie} />
-            ))}
+            {movies &&
+              movies.map((movie, index) => (
+                <MovieListItem key={`${movie.imdbID}-${index}`} movie={movie} />
+              ))}
           </Stack>
         </Col>
       </Row>

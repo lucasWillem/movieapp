@@ -28,11 +28,11 @@ function MovieListItem({ movie }) {
   );
 }
 
-MovieListItem.propTypes = {
-  MovieListItem: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-  }).isRequired,
-};
+// MovieListItem.propTypes = {
+//   MovieListItem: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     value: PropTypes.string.isRequired,
+//   }).isRequired,
+// };
 
 export default React.memo(MovieListItem);
