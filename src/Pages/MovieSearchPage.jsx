@@ -1,7 +1,7 @@
 import React from "react";
 import ScreenContainer from "../Components/ScreenContainer";
 import SearchForm from "../Components/SearchForm";
-import MoviesList from "../Components/MoviesList";
+import FavouriteMovies from "../Components/FavouriteMovies";
 
 import { Stack, Container, Row, Col } from "react-bootstrap";
 
@@ -13,7 +13,7 @@ function MovieSearchPage(props) {
           <Col>
             <Stack gap={5}>
               <SearchForm />
-              {/* <MoviesList variant={'favouriteMovies'} movies={movieSearchResults} /> */}
+              <FavouriteMovies />
             </Stack>
           </Col>
         </Row>

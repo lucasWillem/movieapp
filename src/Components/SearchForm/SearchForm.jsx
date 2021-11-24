@@ -62,7 +62,10 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
               </Row>
               <Row>
                 <Col>
-                  <MoviesList movies={movieSearchResults} />
+                  <MoviesList
+                    movies={movieSearchResults}
+                    variant="searchResults"
+                  />
                 </Col>
               </Row>
             </Stack>

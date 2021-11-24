@@ -8,7 +8,7 @@ import imageNotFound from "../../../assets/images/image-not-found.png";
 
 import { Row, Col, Image, Button, Stack } from "react-bootstrap";
 
-function MovieListItem({ movie }) {
+function MovieListItem({ movie, variant }) {
   const addToFavouriteMovies = useStoreActions(
     (actions) => actions.addToFavouriteMovies
   );
@@ -31,15 +31,27 @@ function MovieListItem({ movie }) {
             </h3>
           </Col>
           <Row lg={4} style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              onClick={(e) => {
-                e.preventDefault();
-                addToFavouriteMovies(movie);
-              }}
-              variant="outline-dark"
-            >
-              Add To Favourites
-            </Button>
+            {variant === "favourites" ? (
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  addToFavouriteMovies(movie);
+                }}
+                variant="outline-dark"
+              >
+                Remove From Favourites
+              </Button>
+            ) : (
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  addToFavouriteMovies(movie);
+                }}
+                variant="outline-dark"
+              >
+                Add To Favourites
+              </Button>
+            )}
           </Row>
         </Row>
       </ListGroup.Item>

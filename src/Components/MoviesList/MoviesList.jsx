@@ -3,14 +3,18 @@ import MovieListItem from "./SubComponents/MovieListItem";
 import { Button, Stack, Container, Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function MoviesList({ actionButtonText, movies }) {
+function MoviesList({ actionButtonText, movies, variant }) {
   const [favouriteMoviesAreVisible, setFavouriteMoviesAreVisible] =
     useState(false);
+
+  React.useEffect(() => {
+    console.log(movies);
+  }, [movies]);
 
   return (
     <Container>
       <Row>
-        {/* <Col md={2} sm={2} xs={2}>
+        {variant === "favourites" && (
           <Button
             variant="outline-dark"
             onClick={() => {
@@ -21,12 +25,17 @@ function MoviesList({ actionButtonText, movies }) {
           >
             {actionButtonText}
           </Button>
-        </Col> */}
+        )}
+
         <Col md={9} sm={9} xs={9}>
           <Stack gap={3}>
             {movies &&
               movies.map((movie, index) => (
-                <MovieListItem key={`${movie.imdbID}-${index}`} movie={movie} />
+                <MovieListItem
+                  key={`${movie.imdbID}-${index}`}
+                  movie={movie}
+                  variant={variant}
+                />
               ))}
           </Stack>
         </Col>
