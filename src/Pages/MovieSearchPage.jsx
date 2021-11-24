@@ -5,7 +5,12 @@ import MoviesList from "../Components/MoviesList";
 
 import { Stack, Container, Row, Col } from "react-bootstrap";
 
+// import { useStoreState } from "easy-peasy";
+
 function MovieSearchPage(props) {
+  // const favouriteMoviesIsVisible = useStoreState(
+  //   (state) => state.favouriteMoviesIsVisible
+  // );
   return (
     <ScreenContainer>
       <Container>
@@ -13,7 +18,6 @@ function MovieSearchPage(props) {
           <Col>
             <Stack gap={5}>
               <SearchForm />
-              {/* <MoviesList variant={'favouriteMovies'} movies={movieSearchResults} /> */}
             </Stack>
           </Col>
         </Row>
