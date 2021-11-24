@@ -50,7 +50,22 @@ const store = createStore({
 
   favouriteMovies: [],
   addToFavouriteMovies: action((state, payload) => {
-    state.favouriteMovies.push(payload);
+    if (
+      !state.favouriteMovies.some(
+        (faveMovie) => faveMovie.imdbID === payload.imdbID
+      )
+    ) {
+      state.favouriteMovies.push(payload);
+    }
+  }),
+  removeFromFavouriteMovies: action((state, payload) => {
+    state.favouriteMovies = state.favouriteMovies.filter(
+      (faveMovie) => faveMovie.imdbID !== payload.imdbID
+    );
+  }),
+  favouriteMoviesIsVisible: false,
+  setFavouriteMoviesVisibility: action((state, payload) => {
+    state.favouriteMoviesIsVisible = payload;
   }),
 });
 
