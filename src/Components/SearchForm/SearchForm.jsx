@@ -91,7 +91,7 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
                       setFavouriteMoviesVisibility(false);
                     }}
                   >
-                    Hide Favourites
+                    Back To Search
                   </Button>
                 ) : (
                   <Button

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import imageNotFound from "../../../assets/images/image-not-found.png";
 
-import { ArrowRight, X } from "react-bootstrap-icons";
+import { HandThumbsUp } from "react-bootstrap-icons";
 
 import { useStoreActions } from "easy-peasy";
 
@@ -23,7 +23,13 @@ function MovieCard({ movie, variant }) {
   );
 
   return (
-    <Card style={{ width: "10rem", margin: 10, padding: 5 }}>
+    <Card
+      style={{
+        width: "10rem",
+        margin: 10,
+        padding: 5,
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -31,7 +37,7 @@ function MovieCard({ movie, variant }) {
           justifyContent: "flex-end",
         }}
       >
-        {variant === "favourites" ? (
+        {variant === "favourites" && (
           <CloseButton
             style={{ height: 8, width: 8, margin: 5, marginBottom: 15 }}
             onClick={(e) => {
@@ -43,16 +49,6 @@ function MovieCard({ movie, variant }) {
               });
             }}
           />
-        ) : (
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              addToFavouriteMovies(movie);
-            }}
-            variant="outline-dark"
-          >
-            Add To Favourites
-          </Button>
         )}
       </div>
 
@@ -67,6 +63,25 @@ function MovieCard({ movie, variant }) {
           released: {movie.Year} ({movie.Type}){" "}
         </Card.Text>
       </Card.Body>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "flex-end",
+        }}
+      >
+        {variant === "searchResults" && (
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              addToFavouriteMovies(movie);
+            }}
+            variant="light"
+          >
+            <HandThumbsUp />
+          </Button>
+        )}
+      </div>
     </Card>
   );
 }
