@@ -12,7 +12,11 @@ function FavouriteMovies(props) {
   return (
     <Container>
       <Row>
-        <MoviesList movies={favouriteMovies} variant="favourites" />
+        {favouriteMovies.length === 0 ? (
+          <p>No favourite movies have been added yet</p>
+        ) : (
+          <MoviesList movies={favouriteMovies} variant="favourites" />
+        )}
       </Row>
     </Container>
   );
