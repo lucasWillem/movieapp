@@ -39,11 +39,6 @@ const store = createStore({
       });
   }),
 
-  modalConfiguration: { isVisible: false, content: {} },
-  setModalConfiguration: action((state, payload) => {
-    state.modalConfiguration = payload;
-  }),
-
   selectedMovie: {},
 
   storeSelectedMovie: action((state, payload) => {
