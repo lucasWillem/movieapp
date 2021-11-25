@@ -23,7 +23,11 @@ const store = createStore({
     )
       .then((response) => response.json())
       .then((result) => {
-        actions.addMovieResults(result.Search);
+        const movieResultsWithIsFavouriteKey = result.Search.map((movie) => ({
+          ...movie,
+          isFavourite: false,
+        }));
+        actions.addMovieResults(movieResultsWithIsFavouriteKey);
         actions.setLoaderVisibility(false);
 
         if (result.Response === "False") {
@@ -38,6 +42,30 @@ const store = createStore({
         });
       });
   }),
+  flagMovieAsFavourite: action((state, payload) => {
+    const movieResultsWithIsFavouriteKeyUpdated = state.movieResults.map(
+      (movie) => {
+        return movie.imdbID === payload.imdbID
+          ? { ...movie, isFavourite: true }
+          : { ...movie };
+      }
+    );
+
+    state.movieResults = movieResultsWithIsFavouriteKeyUpdated;
+  }),
+
+  unFlagMovieAsFavourite: action((state, payload) => {
+    const movieResultsWithIsFavouriteKeyUpdated = state.movieResults.map(
+      (movie) => {
+        return movie.imdbID === payload.imdbID
+          ? { ...movie, isFavourite: false }
+          : { ...movie };
+      }
+    );
+
+    state.movieResults = movieResultsWithIsFavouriteKeyUpdated;
+  }),
+
   isLoaderVisible: false,
   setLoaderVisibility: action((state, payload) => {
     state.isLoaderVisible = payload;
