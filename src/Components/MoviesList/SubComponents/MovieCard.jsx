@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 
 import imageNotFound from "../../../assets/images/image-not-found.png";
 
+import { ArrowRight, X } from "react-bootstrap-icons";
+
 import { useStoreActions } from "easy-peasy";
 
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, CloseButton, Row } from "react-bootstrap";
 
 function MovieCard({ movie, variant }) {
   const removeFromFavouriteMovies = useStoreActions(
@@ -22,19 +24,16 @@ function MovieCard({ movie, variant }) {
 
   return (
     <Card style={{ width: "10rem", margin: 10, padding: 5 }}>
-      <Card.Img
-        variant="top"
-        alt={movie.Title}
-        src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
-      />
-      <Card.Body>
-        <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>
-          released: {movie.Year} ({movie.Type}){" "}
-        </Card.Text>
-
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
         {variant === "favourites" ? (
-          <Button
+          <CloseButton
+            style={{ height: 8, width: 8, margin: 5, marginBottom: 15 }}
             onClick={(e) => {
               e.preventDefault();
               removeFromFavouriteMovies(movie);
@@ -43,10 +42,7 @@ function MovieCard({ movie, variant }) {
                 message: "Item removed from Favourites",
               });
             }}
-            variant="outline-dark"
-          >
-            Remove From Favourites
-          </Button>
+          />
         ) : (
           <Button
             onClick={(e) => {
@@ -58,6 +54,18 @@ function MovieCard({ movie, variant }) {
             Add To Favourites
           </Button>
         )}
+      </div>
+
+      <Card.Img
+        variant="top"
+        alt={movie.Title}
+        src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
+      />
+      <Card.Body>
+        <Card.Title>{movie.Title}</Card.Title>
+        <Card.Text>
+          released: {movie.Year} ({movie.Type}){" "}
+        </Card.Text>
       </Card.Body>
     </Card>
   );
