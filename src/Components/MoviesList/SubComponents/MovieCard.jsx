@@ -34,6 +34,10 @@ function MovieCard({ movie, variant }) {
     (actions) => actions.setModalConfiguration
   );
 
+  const fetchAndStoreSelectedMovie = useStoreActions(
+    (actions) => actions.fetchAndStoreSelectedMovie
+  );
+
   function determineLikeButtonState() {
     if (variant === "searchResults" && movie.isFavourite) {
       return (
@@ -76,6 +80,7 @@ function MovieCard({ movie, variant }) {
       }}
       onClick={() => {
         setModalConfiguration({ isVisible: true, content: movie });
+        fetchAndStoreSelectedMovie(movie.imdbID);
       }}
     >
       <div

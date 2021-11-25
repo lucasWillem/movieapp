@@ -21,8 +21,8 @@ import {
 function SearchForm({ placeholderText, actionButtonText, formTitle }) {
   const [searchText, setSearchText] = useState("");
 
-  const saveMovieResults = useStoreActions(
-    (actions) => actions.saveMovieResults
+  const fetchAndStoreMovieSearchResults = useStoreActions(
+    (actions) => actions.fetchAndStoreMovieSearchResults
   );
 
   const setFavouriteMoviesVisibility = useStoreActions(
@@ -78,7 +78,7 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
                   disabled={searchText.trim().length === 0}
                   onClick={(e) => {
                     e.preventDefault();
-                    saveMovieResults(searchText);
+                    fetchAndStoreMovieSearchResults(searchText);
                   }}
                 >
                   {actionButtonText}

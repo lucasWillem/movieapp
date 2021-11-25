@@ -2,10 +2,10 @@ import { createStore, action, thunk } from "easy-peasy";
 
 const store = createStore({
   movieResults: [],
-  addMovieResults: action((state, payload) => {
+  storeMovieResults: action((state, payload) => {
     state.movieResults = payload;
   }),
-  saveMovieResults: thunk((actions, payload) => {
+  fetchAndStoreMovieSearchResults: thunk((actions, payload) => {
     actions.setLoaderVisibility(true);
 
     fetch(
@@ -27,7 +27,7 @@ const store = createStore({
           ...movie,
           isFavourite: false,
         }));
-        actions.addMovieResults(movieResultsWithIsFavouriteKey);
+        actions.storeMovieResults(movieResultsWithIsFavouriteKey);
         actions.setLoaderVisibility(false);
 
         if (result.Response === "False") {
@@ -102,6 +102,34 @@ const store = createStore({
   modalConfiguration: { isVisible: false, content: {} },
   setModalConfiguration: action((state, payload) => {
     state.modalConfiguration = payload;
+  }),
+
+  selectedMovie: {},
+
+  storeSelectedMovie: action((state, payload) => {
+    state.selectedMovie = payload;
+  }),
+
+  fetchAndStoreSelectedMovie: thunk((actions, payload) => {
+    fetch(
+      `https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=${payload}`,
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+          "x-rapidapi-key":
+            "a6ae80c0edmshfe5b7a5058982c3p14ee45jsndb0cf2e7ec93",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        actions.storeSelectedMovie(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }),
 });
 
