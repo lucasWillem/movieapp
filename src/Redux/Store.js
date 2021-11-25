@@ -23,7 +23,11 @@ const store = createStore({
     )
       .then((response) => response.json())
       .then((result) => {
-        actions.addMovieResults(result.Search);
+        const movieResultsWithIsFavouriteKey = result.Search.map((movie) => ({
+          ...movie,
+          isFavourite: false,
+        }));
+        actions.addMovieResults(movieResultsWithIsFavouriteKey);
         actions.setLoaderVisibility(false);
 
         if (result.Response === "False") {

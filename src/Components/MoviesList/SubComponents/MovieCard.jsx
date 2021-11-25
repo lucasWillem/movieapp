@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import imageNotFound from "../../../assets/images/image-not-found.png";
 
-import { HandThumbsUp } from "react-bootstrap-icons";
+import { HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
 
 import { useStoreActions } from "easy-peasy";
 
