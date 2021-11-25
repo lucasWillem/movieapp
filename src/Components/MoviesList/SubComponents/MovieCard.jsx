@@ -83,6 +83,7 @@ function MovieCard({ movie, variant }) {
             onClick={(e) => {
               e.preventDefault();
               removeFromFavouriteMovies(movie);
+              unFlagMovieAsFavourite(movie);
               setAlertConfiguration({
                 isVisible: true,
                 message: "Item removed from Favourites",
