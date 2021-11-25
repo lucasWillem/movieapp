@@ -44,36 +44,6 @@ const store = createStore({
     state.isLoaderVisible = payload;
   }),
 
-  alertConfiguration: { isVisible: false, message: "" },
-  setAlertConfiguration: action((state, payload) => {
-    state.alertConfiguration = payload;
-  }),
-
-  favouriteMovies: [],
-  addToFavouriteMovies: action((state, payload) => {
-    if (
-      !state.favouriteMovies.some(
-        (faveMovie) => faveMovie.imdbID === payload.imdbID
-      )
-    ) {
-      state.favouriteMovies.push(payload);
-    }
-  }),
-  removeFromFavouriteMovies: action((state, payload) => {
-    const updatedArray = state.favouriteMovies.filter(
-      (faveMovie) => faveMovie.imdbID !== payload.imdbID
-    );
-
-    state.favouriteMovies = updatedArray;
-  }),
-  movieListVariation: "card",
-  setMovieListVariation: action((state, payload) => {
-    state.movieListVariation = payload;
-  }),
-  favouriteMoviesIsVisible: false,
-  setFavouriteMoviesVisibility: action((state, payload) => {
-    state.favouriteMoviesIsVisible = payload;
-  }),
   modalConfiguration: { isVisible: false, content: {} },
   setModalConfiguration: action((state, payload) => {
     state.modalConfiguration = payload;
