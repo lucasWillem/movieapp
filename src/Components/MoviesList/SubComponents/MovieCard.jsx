@@ -16,6 +16,10 @@ function MovieCard({ movie, variant }) {
     (actions) => actions.addToFavouriteMovies
   );
 
+  const setAlertConfiguration = useStoreActions(
+    (actions) => actions.setAlertConfiguration
+  );
+
   return (
     <Card style={{ width: "10rem", margin: 10, padding: 5 }}>
       <Card.Img
@@ -34,6 +38,10 @@ function MovieCard({ movie, variant }) {
             onClick={(e) => {
               e.preventDefault();
               removeFromFavouriteMovies(movie);
+              setAlertConfiguration({
+                isVisible: true,
+                message: "Item removed from Favourites",
+              });
             }}
             variant="outline-dark"
           >
