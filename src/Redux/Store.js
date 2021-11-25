@@ -1,4 +1,4 @@
-import { createStore, action, thunk } from "easy-peasy";
+import { createStore, action, thunk, useStoreDispatch } from "easy-peasy";
 
 const store = createStore({
   movieResults: [],
@@ -124,13 +124,34 @@ const store = createStore({
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        actions.storeSelectedMovie(result);
-        actions.setModalConfiguration({ isVisible: true, content: result });
+        const resultWithIsFavouriteKeyAdded = { ...result, isFavourite: false };
+        actions.storeSelectedMovie(resultWithIsFavouriteKeyAdded);
+        actions.setModalConfiguration({
+          isVisible: true,
+          content: resultWithIsFavouriteKeyAdded,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
+  }),
+
+  toggleMovieFavouredState: thunk((actions, payload, helpers) => {
+    const { selectedMovie } = helpers.getState();
+
+    const selectedMovieWithUpdatedFavouredState = {
+      ...payload,
+      isFavourite: selectedMovie.isFavourite === true ? false : true,
+    };
+
+    actions.storeSelectedMovie(selectedMovieWithUpdatedFavouredState);
+    actions.setModalConfiguration({
+      isVisible: true,
+      content: selectedMovieWithUpdatedFavouredState,
+    });
+
+    // const { todos } = helpers.getState();
+    // return Promise.all(todos.map((todo) => axios.post("/todos", todo)));
   }),
 });
 
