@@ -1,22 +1,20 @@
 import React from "react";
-import ScreenContainer from "../Components/ScreenContainer";
+import Container from "../Components/Container";
 import SearchForm from "../Components/SearchForm";
 
-import { Stack, Container, Row, Col } from "react-bootstrap";
+import { Stack, Row, Col } from "react-bootstrap";
 
 function MovieSearchPage(props) {
   return (
-    <ScreenContainer>
-      <Container>
-        <Row>
-          <Col>
-            <Stack gap={5}>
-              <SearchForm />
-            </Stack>
-          </Col>
-        </Row>
-      </Container>
-    </ScreenContainer>
+    <Container>
+      <Row>
+        <Col>
+          <Stack gap={5}>
+            <SearchForm />
+          </Stack>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

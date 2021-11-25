@@ -3,64 +3,22 @@ import PropTypes from "prop-types";
 
 import imageNotFound from "../../../assets/images/image-not-found.png";
 
-import { HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
+import { useStoreActions } from "easy-peasy";
 
-import { useStoreActions, useStoreState } from "easy-peasy";
-
-import { Card, Button, CloseButton, Row } from "react-bootstrap";
+import { Card, CloseButton } from "react-bootstrap";
 
 function MovieCard({ movie, variant }) {
   const removeFromFavouriteMovies = useStoreActions(
     (actions) => actions.removeFromFavouriteMovies
   );
 
-  const addToFavouriteMovies = useStoreActions(
-    (actions) => actions.addToFavouriteMovies
-  );
-
   const setAlertConfiguration = useStoreActions(
     (actions) => actions.setAlertConfiguration
   );
 
-  const flagMovieAsFavourite = useStoreActions(
-    (actions) => actions.flagMovieAsFavourite
+  const fetchAndStoreSelectedMovie = useStoreActions(
+    (actions) => actions.fetchAndStoreSelectedMovie
   );
-
-  const unFlagMovieAsFavourite = useStoreActions(
-    (actions) => actions.unFlagMovieAsFavourite
-  );
-
-  function determineLikeButtonState() {
-    if (variant === "searchResults" && movie.isFavourite) {
-      return (
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            addToFavouriteMovies(movie);
-            unFlagMovieAsFavourite(movie);
-          }}
-          variant="light"
-        >
-          <HandThumbsUpFill />
-        </Button>
-      );
-    }
-
-    if (variant === "searchResults" && !movie.isFavourite) {
-      return (
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            addToFavouriteMovies(movie);
-            flagMovieAsFavourite(movie);
-          }}
-          variant="light"
-        >
-          <HandThumbsUp />
-        </Button>
-      );
-    }
-  }
 
   return (
     <Card
@@ -68,6 +26,10 @@ function MovieCard({ movie, variant }) {
         width: "10rem",
         margin: 10,
         padding: 5,
+        cursor: variant === "favourites" ? "auto" : "pointer",
+      }}
+      onClick={() => {
+        variant !== "favourites" && fetchAndStoreSelectedMovie(movie.imdbID);
       }}
     >
       <div
@@ -83,7 +45,6 @@ function MovieCard({ movie, variant }) {
             onClick={(e) => {
               e.preventDefault();
               removeFromFavouriteMovies(movie);
-              unFlagMovieAsFavourite(movie);
               setAlertConfiguration({
                 isVisible: true,
                 message: "Item removed from Favourites",
@@ -104,15 +65,6 @@ function MovieCard({ movie, variant }) {
           released: {movie.Year} ({movie.Type}){" "}
         </Card.Text>
       </Card.Body>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
-        }}
-      >
-        {determineLikeButtonState()}
-      </div>
     </Card>
   );
 }
