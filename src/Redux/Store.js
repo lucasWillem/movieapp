@@ -39,11 +39,6 @@ const store = createStore({
       });
   }),
 
-  isLoaderVisible: false,
-  setLoaderVisibility: action((state, payload) => {
-    state.isLoaderVisible = payload;
-  }),
-
   modalConfiguration: { isVisible: false, content: {} },
   setModalConfiguration: action((state, payload) => {
     state.modalConfiguration = payload;
