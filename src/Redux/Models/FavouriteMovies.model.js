@@ -18,10 +18,6 @@ const favouriteMoviesModel = {
 
     state.favouriteMovies = updatedArray;
   }),
-  movieListVariation: "card",
-  setMovieListVariation: action((state, payload) => {
-    state.movieListVariation = payload;
-  }),
   favouriteMoviesIsVisible: false,
   setFavouriteMoviesVisibility: action((state, payload) => {
     state.favouriteMoviesIsVisible = payload;
