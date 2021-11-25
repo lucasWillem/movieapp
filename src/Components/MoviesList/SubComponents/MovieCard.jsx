@@ -26,7 +26,7 @@ function MovieCard({ movie, variant }) {
         width: "10rem",
         margin: 10,
         padding: 5,
-        cursor: "pointer",
+        cursor: variant === "favourites" ? "auto" : "pointer",
       }}
       onClick={() => {
         variant !== "favourites" && fetchAndStoreSelectedMovie(movie.imdbID);
