@@ -5,7 +5,7 @@ import imageNotFound from "../../../assets/images/image-not-found.png";
 
 import { HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
 
-import { useStoreActions } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 import { Card, Button, CloseButton, Row } from "react-bootstrap";
 
@@ -21,6 +21,46 @@ function MovieCard({ movie, variant }) {
   const setAlertConfiguration = useStoreActions(
     (actions) => actions.setAlertConfiguration
   );
+
+  const flagMovieAsFavourite = useStoreActions(
+    (actions) => actions.flagMovieAsFavourite
+  );
+
+  const unFlagMovieAsFavourite = useStoreActions(
+    (actions) => actions.unFlagMovieAsFavourite
+  );
+
+  function determineLikeButtonState() {
+    if (variant === "searchResults" && movie.isFavourite) {
+      return (
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            addToFavouriteMovies(movie);
+            unFlagMovieAsFavourite(movie);
+          }}
+          variant="light"
+        >
+          <HandThumbsUpFill />
+        </Button>
+      );
+    }
+
+    if (variant === "searchResults" && !movie.isFavourite) {
+      return (
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            addToFavouriteMovies(movie);
+            flagMovieAsFavourite(movie);
+          }}
+          variant="light"
+        >
+          <HandThumbsUp />
+        </Button>
+      );
+    }
+  }
 
   return (
     <Card
@@ -70,17 +110,7 @@ function MovieCard({ movie, variant }) {
           alignItems: "flex-end",
         }}
       >
-        {variant === "searchResults" && (
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              addToFavouriteMovies(movie);
-            }}
-            variant="light"
-          >
-            <HandThumbsUp />
-          </Button>
-        )}
+        {determineLikeButtonState()}
       </div>
     </Card>
   );

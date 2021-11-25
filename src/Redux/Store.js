@@ -42,6 +42,30 @@ const store = createStore({
         });
       });
   }),
+  flagMovieAsFavourite: action((state, payload) => {
+    const movieResultsWithIsFavouriteKeyUpdated = state.movieResults.map(
+      (movie) => {
+        return movie.imdbID === payload.imdbID
+          ? { ...movie, isFavourite: true }
+          : { ...movie };
+      }
+    );
+
+    state.movieResults = movieResultsWithIsFavouriteKeyUpdated;
+  }),
+
+  unFlagMovieAsFavourite: action((state, payload) => {
+    const movieResultsWithIsFavouriteKeyUpdated = state.movieResults.map(
+      (movie) => {
+        return movie.imdbID === payload.imdbID
+          ? { ...movie, isFavourite: false }
+          : { ...movie };
+      }
+    );
+
+    state.movieResults = movieResultsWithIsFavouriteKeyUpdated;
+  }),
+
   isLoaderVisible: false,
   setLoaderVisibility: action((state, payload) => {
     state.isLoaderVisible = payload;
