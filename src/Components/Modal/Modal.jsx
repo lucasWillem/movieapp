@@ -20,42 +20,25 @@ function Modal(props) {
     (actions) => actions.addToFavouriteMovies
   );
 
-  const toggleMovieFavouredState = useStoreActions(
-    (actions) => actions.toggleMovieFavouredState
+  const removeFromFavouriteMovies = useStoreActions(
+    (actions) => actions.removeFromFavouriteMovies
   );
 
-  function determineLikeButtonState() {
-    if (content.isFavourite) {
-      return (
-        <Button
-          onClick={() => {
-            addToFavouriteMovies(content);
-            toggleMovieFavouredState(content);
-          }}
-          variant="light"
-        >
-          <HandThumbsUpFill style={{ fontSize: 25 }} />
-        </Button>
-      );
-    }
+  const setModalConfiguration = useStoreActions(
+    (actions) => actions.setModalConfiguration
+  );
 
-    if (!content.isFavourite) {
-      return (
-        <Button
-          onClick={() => {
-            addToFavouriteMovies(content);
-            toggleMovieFavouredState(content);
-          }}
-          variant="light"
-        >
-          <HandThumbsUp style={{ fontSize: 25 }} />
-        </Button>
-      );
-    }
+  const storeSelectedMovie = useStoreActions(
+    (actions) => actions.storeSelectedMovie
+  );
+
+  function resetStore() {
+    setModalConfiguration({ isVisible: false, content: {} });
+    storeSelectedMovie({});
   }
 
   return (
-    <BootstrapModal show={isVisible}>
+    <BootstrapModal show={isVisible} onHide={() => resetStore()}>
       <BootstrapModal.Header closeButton>
         <BootstrapModal.Title>{content.Title}</BootstrapModal.Title>
       </BootstrapModal.Header>
@@ -143,7 +126,24 @@ function Modal(props) {
             <p>{content.imdbRating}</p>
           </div>
           <BootstrapModal.Footer>
-            {determineLikeButtonState()}
+            <Button
+              variant="outline-primary"
+              onClick={() => {
+                addToFavouriteMovies(content);
+                resetStore();
+              }}
+            >
+              Add To Favourites
+            </Button>
+            <Button
+              variant="outline-dark"
+              onClick={() => {
+                removeFromFavouriteMovies(content);
+                resetStore();
+              }}
+            >
+              Remove From Favourites
+            </Button>
           </BootstrapModal.Footer>
         </BootstrapModal.Body>
       </>

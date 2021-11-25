@@ -1,4 +1,4 @@
-import { createStore, action, thunk, useStoreDispatch } from "easy-peasy";
+import { createStore, action, thunk } from "easy-peasy";
 
 const store = createStore({
   movieResults: [],
@@ -60,9 +60,11 @@ const store = createStore({
     }
   }),
   removeFromFavouriteMovies: action((state, payload) => {
-    state.favouriteMovies = state.favouriteMovies.filter(
+    const updatedArray = state.favouriteMovies.filter(
       (faveMovie) => faveMovie.imdbID !== payload.imdbID
     );
+
+    state.favouriteMovies = updatedArray;
   }),
   movieListVariation: "card",
   setMovieListVariation: action((state, payload) => {
@@ -83,7 +85,7 @@ const store = createStore({
     state.selectedMovie = payload;
   }),
 
-  fetchAndStoreSelectedMovie: thunk((actions, payload) => {
+  fetchAndStoreSelectedMovie: thunk((actions, payload, helpers) => {
     fetch(
       `https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=${payload}`,
       {
@@ -97,31 +99,15 @@ const store = createStore({
     )
       .then((response) => response.json())
       .then((result) => {
-        const resultWithIsFavouriteKeyAdded = { ...result, isFavourite: false };
-        actions.storeSelectedMovie(resultWithIsFavouriteKeyAdded);
+        actions.storeSelectedMovie(result);
         actions.setModalConfiguration({
           isVisible: true,
-          content: resultWithIsFavouriteKeyAdded,
+          content: result,
         });
       })
       .catch((err) => {
         console.log(err);
       });
-  }),
-
-  toggleMovieFavouredState: thunk((actions, payload, helpers) => {
-    const { selectedMovie } = helpers.getState();
-
-    const selectedMovieWithUpdatedFavouredState = {
-      ...payload,
-      isFavourite: selectedMovie.isFavourite === true ? false : true,
-    };
-
-    actions.storeSelectedMovie(selectedMovieWithUpdatedFavouredState);
-    actions.setModalConfiguration({
-      isVisible: true,
-      content: selectedMovieWithUpdatedFavouredState,
-    });
   }),
 });
 
