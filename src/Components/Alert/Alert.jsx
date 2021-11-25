@@ -24,7 +24,7 @@ function Alert(props) {
     <div
       style={{
         position: "fixed",
-        top: 30,
+        bottom: 30,
         left: 50,
         right: 50,
       }}
