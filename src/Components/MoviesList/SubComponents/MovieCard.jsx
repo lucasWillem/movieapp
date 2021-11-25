@@ -5,9 +5,9 @@ import imageNotFound from "../../../assets/images/image-not-found.png";
 
 import { HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
 
-import { useStoreActions, useStoreState } from "easy-peasy";
+import { useStoreActions } from "easy-peasy";
 
-import { Card, Button, CloseButton, Row } from "react-bootstrap";
+import { Card, Button, CloseButton } from "react-bootstrap";
 
 function MovieCard({ movie, variant }) {
   const removeFromFavouriteMovies = useStoreActions(
@@ -28,10 +28,6 @@ function MovieCard({ movie, variant }) {
 
   const unFlagMovieAsFavourite = useStoreActions(
     (actions) => actions.unFlagMovieAsFavourite
-  );
-
-  const setModalConfiguration = useStoreActions(
-    (actions) => actions.setModalConfiguration
   );
 
   const fetchAndStoreSelectedMovie = useStoreActions(
@@ -79,7 +75,6 @@ function MovieCard({ movie, variant }) {
         cursor: "pointer",
       }}
       onClick={() => {
-        setModalConfiguration({ isVisible: true, content: movie });
         fetchAndStoreSelectedMovie(movie.imdbID);
       }}
     >

@@ -126,6 +126,7 @@ const store = createStore({
       .then((result) => {
         console.log(result);
         actions.storeSelectedMovie(result);
+        actions.setModalConfiguration({ isVisible: true, content: result });
       })
       .catch((err) => {
         console.log(err);
