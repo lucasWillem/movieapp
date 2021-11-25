@@ -3,11 +3,9 @@ import PropTypes from "prop-types";
 
 import imageNotFound from "../../../assets/images/image-not-found.png";
 
-import { HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
-
 import { useStoreActions } from "easy-peasy";
 
-import { Card, Button, CloseButton } from "react-bootstrap";
+import { Card, CloseButton } from "react-bootstrap";
 
 function MovieCard({ movie, variant }) {
   const removeFromFavouriteMovies = useStoreActions(
@@ -31,7 +29,7 @@ function MovieCard({ movie, variant }) {
         cursor: "pointer",
       }}
       onClick={() => {
-        fetchAndStoreSelectedMovie(movie.imdbID);
+        variant !== "favourites" && fetchAndStoreSelectedMovie(movie.imdbID);
       }}
     >
       <div
