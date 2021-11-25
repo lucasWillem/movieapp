@@ -23,11 +23,7 @@ const store = createStore({
     )
       .then((response) => response.json())
       .then((result) => {
-        const movieResultsWithIsFavouriteKey = result.Search.map((movie) => ({
-          ...movie,
-          isFavourite: false,
-        }));
-        actions.storeMovieResults(movieResultsWithIsFavouriteKey);
+        actions.storeMovieResults(result.Search);
         actions.setLoaderVisibility(false);
 
         if (result.Response === "False") {
@@ -41,29 +37,6 @@ const store = createStore({
           message: err.message,
         });
       });
-  }),
-  flagMovieAsFavourite: action((state, payload) => {
-    const movieResultsWithIsFavouriteKeyUpdated = state.movieResults.map(
-      (movie) => {
-        return movie.imdbID === payload.imdbID
-          ? { ...movie, isFavourite: true }
-          : { ...movie };
-      }
-    );
-
-    state.movieResults = movieResultsWithIsFavouriteKeyUpdated;
-  }),
-
-  unFlagMovieAsFavourite: action((state, payload) => {
-    const movieResultsWithIsFavouriteKeyUpdated = state.movieResults.map(
-      (movie) => {
-        return movie.imdbID === payload.imdbID
-          ? { ...movie, isFavourite: false }
-          : { ...movie };
-      }
-    );
-
-    state.movieResults = movieResultsWithIsFavouriteKeyUpdated;
   }),
 
   isLoaderVisible: false,
@@ -149,9 +122,6 @@ const store = createStore({
       isVisible: true,
       content: selectedMovieWithUpdatedFavouredState,
     });
-
-    // const { todos } = helpers.getState();
-    // return Promise.all(todos.map((todo) => axios.post("/todos", todo)));
   }),
 });
 

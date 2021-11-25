@@ -14,57 +14,13 @@ function MovieCard({ movie, variant }) {
     (actions) => actions.removeFromFavouriteMovies
   );
 
-  const addToFavouriteMovies = useStoreActions(
-    (actions) => actions.addToFavouriteMovies
-  );
-
   const setAlertConfiguration = useStoreActions(
     (actions) => actions.setAlertConfiguration
-  );
-
-  const flagMovieAsFavourite = useStoreActions(
-    (actions) => actions.flagMovieAsFavourite
-  );
-
-  const unFlagMovieAsFavourite = useStoreActions(
-    (actions) => actions.unFlagMovieAsFavourite
   );
 
   const fetchAndStoreSelectedMovie = useStoreActions(
     (actions) => actions.fetchAndStoreSelectedMovie
   );
-
-  function determineLikeButtonState() {
-    if (variant === "searchResults" && movie.isFavourite) {
-      return (
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            addToFavouriteMovies(movie);
-            unFlagMovieAsFavourite(movie);
-          }}
-          variant="light"
-        >
-          <HandThumbsUpFill />
-        </Button>
-      );
-    }
-
-    if (variant === "searchResults" && !movie.isFavourite) {
-      return (
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            addToFavouriteMovies(movie);
-            flagMovieAsFavourite(movie);
-          }}
-          variant="light"
-        >
-          <HandThumbsUp />
-        </Button>
-      );
-    }
-  }
 
   return (
     <Card
@@ -91,7 +47,6 @@ function MovieCard({ movie, variant }) {
             onClick={(e) => {
               e.preventDefault();
               removeFromFavouriteMovies(movie);
-              unFlagMovieAsFavourite(movie);
               setAlertConfiguration({
                 isVisible: true,
                 message: "Item removed from Favourites",
@@ -112,15 +67,6 @@ function MovieCard({ movie, variant }) {
           released: {movie.Year} ({movie.Type}){" "}
         </Card.Text>
       </Card.Body>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
-        }}
-      >
-        {determineLikeButtonState()}
-      </div>
     </Card>
   );
 }
