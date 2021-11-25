@@ -30,6 +30,10 @@ function MovieCard({ movie, variant }) {
     (actions) => actions.unFlagMovieAsFavourite
   );
 
+  const setModalConfiguration = useStoreActions(
+    (actions) => actions.setModalConfiguration
+  );
+
   function determineLikeButtonState() {
     if (variant === "searchResults" && movie.isFavourite) {
       return (
@@ -68,6 +72,10 @@ function MovieCard({ movie, variant }) {
         width: "10rem",
         margin: 10,
         padding: 5,
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        setModalConfiguration({ isVisible: true, content: movie });
       }}
     >
       <div

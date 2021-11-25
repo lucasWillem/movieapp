@@ -99,6 +99,10 @@ const store = createStore({
   setFavouriteMoviesVisibility: action((state, payload) => {
     state.favouriteMoviesIsVisible = payload;
   }),
+  modalConfiguration: { isVisible: false, content: {} },
+  setModalConfiguration: action((state, payload) => {
+    state.modalConfiguration = payload;
+  }),
 });
 
 export { store };
