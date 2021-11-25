@@ -16,6 +16,8 @@ function Modal(props) {
     (state) => state.modalConfiguration
   );
 
+  const favouriteMovies = useStoreState((state) => state.favouriteMovies);
+
   const addToFavouriteMovies = useStoreActions(
     (actions) => actions.addToFavouriteMovies
   );
@@ -58,7 +60,7 @@ function Modal(props) {
               flexDirection: "row",
             }}
           >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Genre:</p>{" "}
+            <p style={{ fontWeight: "bold", marginRight: 10 }}> Genre:</p>
             <p>{content.Genre}</p>
           </div>
           <div
@@ -127,6 +129,9 @@ function Modal(props) {
           </div>
           <BootstrapModal.Footer>
             <Button
+              disabled={favouriteMovies.some(
+                (faveMovie) => faveMovie.imdbID === content.imdbID
+              )}
               variant="outline-primary"
               onClick={() => {
                 addToFavouriteMovies(content);
@@ -136,6 +141,11 @@ function Modal(props) {
               Add To Favourites
             </Button>
             <Button
+              disabled={
+                !favouriteMovies.some(
+                  (faveMovie) => faveMovie.imdbID === content.imdbID
+                )
+              }
               variant="outline-dark"
               onClick={() => {
                 removeFromFavouriteMovies(content);
