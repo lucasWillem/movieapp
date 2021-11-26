@@ -8,20 +8,21 @@ function MoviesList({ movies, variant }) {
   return (
     <Container>
       <Row>
-        {movies &&
-          movies.map((movie, index) => (
-            <MovieCard
-              key={`${movie.imdbID}-${index}`}
-              movie={movie}
-              variant={variant}
-            />
-          ))}
+        {movies.map((movie, index) => (
+          <MovieCard
+            key={`${movie.imdbID}-${index}`}
+            movie={movie}
+            variant={variant}
+          />
+        ))}
       </Row>
     </Container>
   );
 }
 
-MoviesList.defaultProps = {};
+MoviesList.defaultProps = {
+  movies: [],
+};
 
 MoviesList.propTypes = {
   variant: PropTypes.string.isRequired,
