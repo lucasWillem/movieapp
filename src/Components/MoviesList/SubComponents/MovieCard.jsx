@@ -74,4 +74,15 @@ function MovieCard({ movie, variant }) {
   );
 }
 
+MovieCard.propTypes = {
+  variant: PropTypes.string.isRequired,
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Year: PropTypes.string.isRequired,
+    imdbID: PropTypes.string.isRequired,
+    Type: PropTypes.string.isRequired,
+    Poster: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 export default React.memo(MovieCard);
