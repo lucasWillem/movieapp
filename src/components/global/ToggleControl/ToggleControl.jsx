@@ -1,28 +1,11 @@
-import React, { useCallback } from "react";
+import React from "react";
 import "./ToggleControl.css";
 import PropTypes from "prop-types";
 
 import Container from "../Container";
-
-import { useStoreActions, useStoreState } from "easy-peasy";
-
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
-function ToggleControl({ radioButtonOptions }) {
-  const setMovieListVariation = useStoreActions(
-    (actions) => actions.setMovieListVariation
-  );
-
-  const movieListVariation = useStoreState((state) => state.movieListVariation);
-
-  const handleToggleButtonChanged = useCallback(
-    (e) => {
-      e.stopPropagation();
-      setMovieListVariation(e.currentTarget.value);
-    },
-    [setMovieListVariation]
-  );
-
+function ToggleControl({ onChange, value, radioButtonOptions }) {
   return (
     <Container
       style={{
@@ -41,8 +24,8 @@ function ToggleControl({ radioButtonOptions }) {
             variant="primary"
             name="radio"
             value={radio.value}
-            checked={movieListVariation === radio.value}
-            onChange={handleToggleButtonChanged}
+            checked={value === radio.value}
+            onChange={onChange}
           >
             {radio.name}
           </ToggleButton>
@@ -52,14 +35,9 @@ function ToggleControl({ radioButtonOptions }) {
   );
 }
 
-ToggleControl.defaultProps = {
-  radioButtonOptions: [
-    { name: "Card", value: "card" },
-    { name: "List", value: "list" },
-  ],
-};
-
 ToggleControl.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
   radioButtonOptions: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

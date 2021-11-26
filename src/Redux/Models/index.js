@@ -1,12 +1,13 @@
-import alertsModel from "./Alert.model";
-import favouriteMoviesModel from "./FavouriteMovies.model";
-import loadingDisplayModel from "./LoadingDisplay.model";
-import modalModel from "./Modal.model";
-import movieSearchModel from "./MovieSearch.model";
-import selectedMovieModel from "./SelectedMovie.model";
-import movieDisplayVariationModel from "./MovieDisplayVariation.model";
+import alertsModel from "./global/Alert.model";
+import loadingDisplayModel from "./global/LoadingDisplay.model";
 
-const model = {
+import favouriteMoviesModel from "./app/MovieCatalogue/FavouriteMovies.model";
+import modalModel from "./app/MovieCatalogue/Modal.model";
+import movieSearchModel from "./app/MovieCatalogue/MovieSearch.model";
+import selectedMovieModel from "./app/MovieCatalogue/SelectedMovie.model";
+import movieDisplayVariationModel from "./app/MovieCatalogue/MovieDisplayVariation.model";
+
+const models = {
   ...alertsModel,
   ...favouriteMoviesModel,
   ...loadingDisplayModel,
@@ -16,4 +17,4 @@ const model = {
   ...movieDisplayVariationModel,
 };
 
-export default model;
+export default models;

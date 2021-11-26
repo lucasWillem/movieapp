@@ -1,31 +1,17 @@
-import React, { useCallback } from "react";
+import React from "react";
 import "./MovieCard.css";
 import PropTypes from "prop-types";
 
-import imageNotFound from "../../../assets/images/image-not-found.png";
-
-import { useStoreActions } from "easy-peasy";
+import imageNotFound from "../../../../../assets/images/image-not-found.png";
 
 import { Card, CloseButton } from "react-bootstrap";
 
-function MovieCard({ movie, variant }) {
-  const removeFromFavouriteMovies = useStoreActions(
-    (actions) => actions.removeFromFavouriteMovies
-  );
-
-  const setAlertConfiguration = useStoreActions(
-    (actions) => actions.setAlertConfiguration
-  );
-
-  const fetchAndStoreSelectedMovie = useStoreActions(
-    (actions) => actions.fetchAndStoreSelectedMovie
-  );
-
+function MovieCard({ movie, variant, onClick, onRemoveFromFavouritesClick }) {
   const cardWrapper = {
     width: "10rem",
     margin: 10,
     padding: 5,
-    cursor: variant === "favourites" ? "auto" : "pointer",
+    cursor: "pointer",
   };
 
   const closeButtonWrapper = {
@@ -36,31 +22,23 @@ function MovieCard({ movie, variant }) {
 
   const closeButton = { height: 8, width: 8, margin: 5, marginBottom: 15 };
 
-  const handleMovieCardClicked = useCallback(
-    (e) => {
-      e.stopPropagation();
-      variant !== "favourites" && fetchAndStoreSelectedMovie(movie.imdbID);
-    },
-    [fetchAndStoreSelectedMovie, movie.imdbID, variant]
-  );
-
-  const handleCloseButtonClicked = useCallback(
-    (e) => {
-      e.stopPropagation();
-      removeFromFavouriteMovies(movie);
-      setAlertConfiguration({
-        isVisible: true,
-        message: "Item removed from Favourites",
-      });
-    },
-    [movie, removeFromFavouriteMovies, setAlertConfiguration]
-  );
-
   return (
-    <Card style={cardWrapper} onClick={handleMovieCardClicked}>
+    <Card
+      style={cardWrapper}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick(movie);
+      }}
+    >
       <div style={closeButtonWrapper}>
         {variant === "favourites" && (
-          <CloseButton style={closeButton} onClick={handleCloseButtonClicked} />
+          <CloseButton
+            style={closeButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemoveFromFavouritesClick(movie);
+            }}
+          />
         )}
       </div>
 
@@ -87,7 +65,7 @@ function MovieCard({ movie, variant }) {
 }
 
 MovieCard.propTypes = {
-  variant: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(["favourites", "searchResults"]).isRequired,
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Year: PropTypes.string.isRequired,
@@ -95,6 +73,8 @@ MovieCard.propTypes = {
     Type: PropTypes.string.isRequired,
     Poster: PropTypes.string.isRequired,
   }).isRequired,
+  onClick: PropTypes.func.isRequired,
+  onRemoveFromFavouritesClick: PropTypes.func.isRequired,
 };
 
 export default React.memo(MovieCard);
