@@ -19,7 +19,13 @@ import {
   Stack,
 } from "react-bootstrap";
 
-function SearchForm({ placeholderText, actionButtonText, formTitle }) {
+function SearchForm({
+  placeholderText,
+  searchButtonText,
+  backToSearchButtonText,
+  viewFavouritesButtonText,
+  formTitle,
+}) {
   const [searchText, setSearchText] = useState("");
 
   const fetchAndStoreMovieSearchResults = useStoreActions(
@@ -87,7 +93,7 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
                     fetchAndStoreMovieSearchResults(searchText);
                   }}
                 >
-                  {actionButtonText}
+                  {searchButtonText}
                 </Button>
 
                 {
@@ -109,7 +115,9 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
                         : setFavouriteMoviesVisibility(true);
                     }}
                   >
-                    {favouriteMoviesIsVisible ? "Search Again" : "Favourites"}
+                    {favouriteMoviesIsVisible
+                      ? backToSearchButtonText
+                      : viewFavouritesButtonText}
                   </Button>
                 }
                 {movieSearchResults &&
@@ -142,13 +150,17 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
 
 SearchForm.defaultProps = {
   placeholderText: "Search through movies",
-  actionButtonText: "Find",
+  searchButtonText: "Find",
+  viewFavouritesButtonText: "Favourites",
+  backToSearchButtonText: "Search Again",
   formTitle: "Find your favourite movies",
 };
 
 SearchForm.propTypes = {
   placeholderText: PropTypes.string,
-  actionButtonText: PropTypes.string,
+  searchButtonText: PropTypes.string,
+  viewFavouritesButtonText: PropTypes.string,
+  backToSearchButtonText: PropTypes.string,
   formTitle: PropTypes.string,
 };
 
