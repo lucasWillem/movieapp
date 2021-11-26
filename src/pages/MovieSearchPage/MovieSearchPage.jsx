@@ -1,6 +1,6 @@
 import React from "react";
-import Container from "../../components/global/Container";
-import MovieCatalogue from "../../components/app/MovieCatalogue";
+import Container from "components/global/Container";
+import MovieCatalogue from "components/app/MovieCatalogue";
 
 import { Stack, Row, Col } from "react-bootstrap";
 

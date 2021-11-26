@@ -2,7 +2,7 @@ import React from "react";
 import "./ToggleControl.css";
 import PropTypes from "prop-types";
 
-import Container from "../Container";
+import Container from "components/global/Container";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
 function ToggleControl({ onChange, value, radioButtonOptions }) {
