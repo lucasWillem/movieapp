@@ -242,11 +242,7 @@ function MovieCatalogue({
                   />
                 </Form.Group>
               </Form>
-              <Stack
-                className={"action-buttons-container"}
-                direction="horizontal"
-                gap={2}
-              >
+              <Stack style={{ height: 60 }} direction="horizontal" gap={2}>
                 <Button
                   variant="outline-dark"
                   disabled={searchText.trim().length === 0}
