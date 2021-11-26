@@ -5,14 +5,16 @@ import imageNotFound from "../../assets/images/image-not-found.png";
 
 import { Table, Image } from "react-bootstrap";
 
+import PropTypes from "prop-types";
+
 const imageStyle = { width: 100 };
 
 function MovieTable({ movies }) {
   return (
     <Table style={{ width: "60%" }} bordered hover>
       <tbody>
-        {movies.map((movie) => (
-          <tr>
+        {movies.map((movie, index) => (
+          <tr key={`${movie.imdbID}-${index}`}>
             <td>
               <Image
                 style={imageStyle}
@@ -33,5 +35,17 @@ function MovieTable({ movies }) {
     </Table>
   );
 }
+
+MovieTable.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Year: PropTypes.string.isRequired,
+      imdbID: PropTypes.string.isRequired,
+      Type: PropTypes.string.isRequired,
+      Poster: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default React.memo(MovieTable);
