@@ -243,7 +243,7 @@ function MovieCatalogue({
                 </Form.Group>
               </Form>
               <Stack
-                style={{ display: "flex", flexWrap: "wrap", marginTop: 5 }}
+                className={"action-buttons-container"}
                 direction="horizontal"
                 gap={2}
               >
@@ -255,12 +255,7 @@ function MovieCatalogue({
                   {searchButtonText}
                 </Button>
                 <Button
-                  style={{
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    minwidth: 50,
-                  }}
+                  className={"favourites-button"}
                   variant={
                     favouriteMoviesIsVisible
                       ? "outline-primary"
@@ -272,7 +267,7 @@ function MovieCatalogue({
                     ? backToSearchButtonText
                     : viewFavouritesButtonText}
                 </Button>
-                {hasMoviesData && !favouriteMoviesIsVisible ? (
+                {hasMoviesData && !favouriteMoviesIsVisible && (
                   <ToggleControl
                     onChange={handleMovieListVariationChanged}
                     value={movieListVariation}
@@ -281,8 +276,6 @@ function MovieCatalogue({
                       { name: "List", value: "list" },
                     ]}
                   />
-                ) : (
-                  <Container style={{ height: 50 }} />
                 )}
               </Stack>
             </Stack>
@@ -290,12 +283,7 @@ function MovieCatalogue({
         </Row>
         <Row>
           <Col lg={9}>
-            <Container
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
+            <Container className={"results-container"}>
               {displayComponent}
             </Container>
           </Col>
