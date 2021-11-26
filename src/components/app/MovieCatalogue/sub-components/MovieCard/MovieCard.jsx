@@ -1,10 +1,9 @@
 import React from "react";
-import "./MovieCard.css";
 import PropTypes from "prop-types";
-
-import imageNotFound from "../../../../../assets/images/image-not-found.png";
-
 import { Card, CloseButton } from "react-bootstrap";
+
+import imageNotFound from "assets/images/image-not-found.png";
+import "./MovieCard.css";
 
 function MovieCard({ movie, variant, onClick, onRemoveFromFavouritesClick }) {
   const cardWrapper = {

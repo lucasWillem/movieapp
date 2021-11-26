@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
-import "./Alert.css";
-
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { Alert as BootstrapAlert } from "react-bootstrap";
+
+import "./Alert.css";
 
 function Alert(props) {
   const { isVisible, message } = useStoreState(

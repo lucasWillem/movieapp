@@ -12,8 +12,8 @@ import {
   Stack,
 } from "react-bootstrap";
 
-import ToggleControl from "../../global/ToggleControl";
-import Container from "../../global/Container";
+import ToggleControl from "components/global/ToggleControl";
+import Container from "components/global/Container";
 
 import MoviesList from "./sub-components/MoviesList";
 import MovieTable from "./sub-components/MovieTable";
@@ -188,7 +188,7 @@ function MovieCatalogue({
       movieListVariation === "card" &&
       hasMoviesData
     ) {
-      //prevent props overload
+      // prevent props overload
 
       return (
         <MoviesList>
@@ -249,7 +249,6 @@ function MovieCatalogue({
               >
                 <Button
                   variant="outline-dark"
-                  type="submit"
                   disabled={searchText.trim().length === 0}
                   onClick={handleSearchRequested}
                 >

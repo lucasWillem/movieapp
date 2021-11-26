@@ -1,9 +1,8 @@
 import React from "react";
-import "./LoadingDisplay.css";
-
 import { useStoreState } from "easy-peasy";
-
 import { Spinner } from "react-bootstrap";
+
+import "./LoadingDisplay.css";
 
 function LoadingDisplay(props) {
   const isLoaderVisible = useStoreState((state) => state.isLoaderVisible);

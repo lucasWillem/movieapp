@@ -1,11 +1,9 @@
 import React from "react";
-import "./MovieTable.css";
-
-import imageNotFound from "../../../../../assets/images/image-not-found.png";
-
+import PropTypes from "prop-types";
 import { Table, Image } from "react-bootstrap";
 
-import PropTypes from "prop-types";
+import "./MovieTable.css";
+import imageNotFound from "assets/images/image-not-found.png";
 
 const imageStyle = { width: 100 };
 
