@@ -24,3 +24,5 @@ yarn-error.log*
 
 # using yarn instead
 package-lock.json
+
+.eslintcache
