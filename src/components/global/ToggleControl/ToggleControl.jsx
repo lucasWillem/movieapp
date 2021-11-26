@@ -2,12 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
-import "./ToggleControl.css";
 import Container from "components/global/Container";
 
 function ToggleControl({ onChange, value, radioButtonOptions }) {
   return (
-    <Container className={"toggle-control-wrapper"}>
+    <Container
+      style={{
+        height: 50,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <ButtonGroup>
         {radioButtonOptions.map((radio, index) => (
           <ToggleButton

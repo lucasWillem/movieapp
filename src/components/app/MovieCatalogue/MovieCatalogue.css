@@ -1,17 +1,6 @@
-.action-buttons-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 5px;
-}
-
 .favourites-button {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   min-width: 50px;
-}
-
-.results-container {
-  display: flex;
-  align-items: center;
 }

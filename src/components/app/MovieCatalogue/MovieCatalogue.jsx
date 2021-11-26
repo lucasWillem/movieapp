@@ -242,11 +242,7 @@ function MovieCatalogue({
                   />
                 </Form.Group>
               </Form>
-              <Stack
-                className={"action-buttons-container"}
-                direction="horizontal"
-                gap={2}
-              >
+              <Stack style={{ height: 60 }} direction="horizontal" gap={2}>
                 <Button
                   variant="outline-dark"
                   disabled={searchText.trim().length === 0}
@@ -283,7 +279,12 @@ function MovieCatalogue({
         </Row>
         <Row>
           <Col lg={9}>
-            <Container className={"results-container"}>
+            <Container
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               {displayComponent}
             </Container>
           </Col>
@@ -307,7 +308,7 @@ MovieCatalogue.defaultProps = {
   placeholderText: "Search through movies",
   searchButtonText: "Find",
   viewFavouritesButtonText: "Favourites",
-  backToSearchButtonText: "Search Again",
+  backToSearchButtonText: "Search Results",
   formTitle: "Find your favourite movies",
 };
 
