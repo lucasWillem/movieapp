@@ -210,7 +210,12 @@ function MovieCatalogue({
       movieListVariation === "list" &&
       hasMoviesData
     ) {
-      return <MovieTable movies={movieSearchResults} />;
+      return (
+        <MovieTable
+          movies={movieSearchResults}
+          onMovieSelected={handleMovieCardClicked}
+        />
+      );
     }
   }, [
     favouriteMovies,

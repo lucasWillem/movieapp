@@ -5,15 +5,22 @@ import { Table, Image } from "react-bootstrap";
 import "./MovieTable.css";
 import imageNotFound from "assets/images/image-not-found.png";
 
-function MovieTable({ movies }) {
+function MovieTable({ movies, onMovieSelected }) {
   return (
-    <Table className={"table"} bordered hover>
+    <Table className={"movie-table"} bordered hover>
       <tbody>
         {movies.map((movie, index) => (
-          <tr key={`${movie.imdbID}-${index}`}>
+          <tr
+            key={`${movie.imdbID}-${index}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onMovieSelected(movie);
+            }}
+            className={"movie-table-row"}
+          >
             <td>
               <Image
-                className={"image"}
+                className={"movie-image"}
                 src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
               />
             </td>
@@ -43,6 +50,7 @@ MovieTable.propTypes = {
       Poster: PropTypes.string.isRequired,
     })
   ).isRequired,
+  onMovieSelected: PropTypes.func.isRequired,
 };
 
 export default React.memo(MovieTable);

@@ -1,13 +1,17 @@
-.image {
-  width: 100px;
+.movie-image {
+  width: 100%;
 }
 
-.table {
-  width: 60%;
+.movie-table {
+  width: 70%;
 }
 
 .year-and-type-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.movie-table-row {
+  cursor: pointer;
 }
