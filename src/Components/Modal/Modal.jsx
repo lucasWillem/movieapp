@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./Modal.css";
 import imageNotFound from "../../assets/images/image-not-found.png";
 import Container from "../Container";
@@ -30,11 +30,6 @@ function Modal(props) {
     (actions) => actions.storeSelectedMovie
   );
 
-  function resetStore() {
-    setModalConfiguration({ isVisible: false, content: {} });
-    storeSelectedMovie({});
-  }
-
   const detailsWrapper = {
     display: "flex",
     flexDirection: "row",
@@ -42,8 +37,25 @@ function Modal(props) {
 
   const detailHeading = { fontWeight: "bold", marginRight: 10 };
 
+  const resetStore = useCallback(() => {
+    setModalConfiguration({ isVisible: false, content: {} });
+    storeSelectedMovie({});
+  }, [setModalConfiguration, storeSelectedMovie]);
+
+  const handleModalHidden = useCallback(() => resetStore(), [resetStore]);
+
+  const addToFavourites = useCallback(() => {
+    addToFavouriteMovies(content);
+    resetStore();
+  }, [addToFavouriteMovies, content, resetStore]);
+
+  const removeFromFavourites = useCallback(() => {
+    removeFromFavouriteMovies(content);
+    resetStore();
+  }, [content, removeFromFavouriteMovies, resetStore]);
+
   return (
-    <BootstrapModal show={isVisible} onHide={() => resetStore()}>
+    <BootstrapModal show={isVisible} onHide={handleModalHidden}>
       <BootstrapModal.Header closeButton>
         <BootstrapModal.Title>{content.Title}</BootstrapModal.Title>
       </BootstrapModal.Header>
@@ -130,10 +142,7 @@ function Modal(props) {
                 (faveMovie) => faveMovie.imdbID === content.imdbID
               )}
               variant="outline-primary"
-              onClick={() => {
-                addToFavouriteMovies(content);
-                resetStore();
-              }}
+              onClick={addToFavourites}
             >
               Add To Favourites
             </Button>
@@ -144,10 +153,7 @@ function Modal(props) {
                 )
               }
               variant="outline-dark"
-              onClick={() => {
-                removeFromFavouriteMovies(content);
-                resetStore();
-              }}
+              onClick={removeFromFavourites}
             >
               Remove From Favourites
             </Button>

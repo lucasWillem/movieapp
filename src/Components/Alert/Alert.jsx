@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./Alert.css";
 
 import { useStoreState, useStoreActions } from "easy-peasy";
@@ -21,14 +21,16 @@ function Alert(props) {
     zIndex: 100,
   };
 
+  const handleOnModalClose = useCallback(() => {
+    setAlertConfiguration({ isVisible: false, message: "" });
+  }, [setAlertConfiguration]);
+
   return (
     <>
       {isVisible && (
         <BootstrapAlert
           style={alertStyles}
-          onClose={() => {
-            setAlertConfiguration({ isVisible: false, message: "" });
-          }}
+          onClose={handleOnModalClose}
           variant="primary"
           dismissible
         >
