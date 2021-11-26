@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Modal as BootstrapModal, Image, Button } from "react-bootstrap";
+
 import "./MovieModal.css";
 import imageNotFound from "assets/images/image-not-found.png";
 import Container from "components/global/Container";
-
-import { Modal as BootstrapModal, Image, Button } from "react-bootstrap";
 
 function MovieModal({
   movie,

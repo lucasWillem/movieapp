@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+
 import { paths } from "../paths";
 import MovieSearchPage from "pages/MovieSearchPage/MovieSearchPage";
 

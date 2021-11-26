@@ -1,8 +1,8 @@
 import React from "react";
-import "./MoviesList.css";
-import { Container, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Container, Row } from "react-bootstrap";
 
+import "./MoviesList.css";
 function MoviesList({ children }) {
   return (
     <Container>
