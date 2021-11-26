@@ -1,4 +1,5 @@
 import React from "react";
+import "./MovieCard.css";
 import PropTypes from "prop-types";
 
 import imageNotFound from "../../../assets/images/image-not-found.png";
@@ -20,30 +21,34 @@ function MovieCard({ movie, variant }) {
     (actions) => actions.fetchAndStoreSelectedMovie
   );
 
+  const cardWrapper = {
+    width: "10rem",
+    margin: 10,
+    padding: 5,
+    cursor: variant === "favourites" ? "auto" : "pointer",
+  };
+
+  const closeButtonWrapper = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  };
+
+  const closeButton = { height: 8, width: 8, margin: 5, marginBottom: 15 };
+
   return (
     <Card
-      style={{
-        width: "10rem",
-        margin: 10,
-        padding: 5,
-        cursor: variant === "favourites" ? "auto" : "pointer",
-      }}
+      style={cardWrapper}
       onClick={() => {
         variant !== "favourites" && fetchAndStoreSelectedMovie(movie.imdbID);
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-        }}
-      >
+      <div style={closeButtonWrapper}>
         {variant === "favourites" && (
           <CloseButton
-            style={{ height: 8, width: 8, margin: 5, marginBottom: 15 }}
+            style={closeButton}
             onClick={(e) => {
-              e.preventDefault();
+              e.stopPropagation();
               removeFromFavouriteMovies(movie);
               setAlertConfiguration({
                 isVisible: true,
@@ -61,12 +66,30 @@ function MovieCard({ movie, variant }) {
       />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>
-          released: {movie.Year} ({movie.Type}){" "}
-        </Card.Text>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Card.Text>{movie.Year}</Card.Text>
+          <Card.Text>({movie.Type})</Card.Text>
+        </div>
       </Card.Body>
     </Card>
   );
 }
+
+MovieCard.propTypes = {
+  variant: PropTypes.string.isRequired,
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Year: PropTypes.string.isRequired,
+    imdbID: PropTypes.string.isRequired,
+    Type: PropTypes.string.isRequired,
+    Poster: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default React.memo(MovieCard);

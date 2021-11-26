@@ -1,15 +1,11 @@
 import React from "react";
 import "./Modal.css";
-
 import imageNotFound from "../../assets/images/image-not-found.png";
-
 import Container from "../Container";
 
 import { useStoreState, useStoreActions } from "easy-peasy";
 
 import { Modal as BootstrapModal, Image, Button } from "react-bootstrap";
-
-import { HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
 
 function Modal(props) {
   const { isVisible, content } = useStoreState(
@@ -39,6 +35,13 @@ function Modal(props) {
     storeSelectedMovie({});
   }
 
+  const detailsWrapper = {
+    display: "flex",
+    flexDirection: "row",
+  };
+
+  const detailHeading = { fontWeight: "bold", marginRight: 10 };
+
   return (
     <BootstrapModal show={isVisible} onHide={() => resetStore()}>
       <BootstrapModal.Header closeButton>
@@ -52,79 +55,73 @@ function Modal(props) {
           />
         </Container>
 
-        <BootstrapModal.Body>{content.Plot}</BootstrapModal.Body>
         <BootstrapModal.Body>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Genre:</p>
-            <p>{content.Genre}</p>
+          {content.Plot ? content.Plot : "no plot information available"}
+        </BootstrapModal.Body>
+        <BootstrapModal.Body>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> Genre:</p>
+            <p>
+              {content.Genre !== "N/A"
+                ? content.Genre
+                : "no genre information available"}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "stretch",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Released on:</p>
-            <p>{content.Released}</p>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> Released on:</p>
+            <p>
+              {content.Released !== "N/A"
+                ? content.Released
+                : "no release date available"}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Director:</p>{" "}
-            <p>{content.Director}</p>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> Director:</p>{" "}
+            <p>
+              {content.Director !== "N/A"
+                ? content.Director
+                : "no director name(s) available"}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Writer(s):</p>{" "}
-            <p>{content.Writer}</p>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> Writer(s):</p>
+            <p>
+              {content.Writer !== "N/A"
+                ? content.Writer
+                : "no writer name(s) available"}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Featuring:</p>{" "}
-            <p>{content.Actors}</p>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> Featuring:</p>
+            <p>
+              {content.Actors !== "N/A"
+                ? content.Actors
+                : "no actor name(s) available"}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Language(s):</p>{" "}
-            <p>{content.Language}</p>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> Language(s):</p>{" "}
+            <p>
+              {content.Language !== "N/A"
+                ? content.Language
+                : "no language information available"}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> Meta Score:</p>
-            <p>{content.Metascore}</p>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> Meta Score:</p>
+            <p>
+              {content.Metascore !== "N/A"
+                ? content.Metascore
+                : "no meta rating available"}
+            </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ fontWeight: "bold", marginRight: 10 }}> IMDB:</p>
+          <div style={detailsWrapper}>
+            <p style={detailHeading}> IMDB:</p>
+            <p>
+              {content.imdbRating !== "N/A"
+                ? content.imdbRating
+                : "no IMDB rating available"}
+            </p>
             <p>{content.imdbRating}</p>
           </div>
           <BootstrapModal.Footer>

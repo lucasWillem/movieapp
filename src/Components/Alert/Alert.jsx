@@ -2,14 +2,7 @@ import React from "react";
 import "./Alert.css";
 
 import { useStoreState, useStoreActions } from "easy-peasy";
-
-import {
-  Alert as BootstrapAlert,
-  CloseButton,
-  Col,
-  Row,
-  Fade,
-} from "react-bootstrap";
+import { Alert as BootstrapAlert } from "react-bootstrap";
 
 function Alert(props) {
   const { isVisible, message } = useStoreState(
@@ -20,27 +13,29 @@ function Alert(props) {
     (actions) => actions.setAlertConfiguration
   );
 
+  const alertStyles = {
+    position: "fixed",
+    top: "5%",
+    left: "5%",
+    right: "5%",
+    zIndex: 100,
+  };
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 30,
-        left: 50,
-        right: 50,
-      }}
-    >
+    <>
       {isVisible && (
         <BootstrapAlert
+          style={alertStyles}
           onClose={() => {
             setAlertConfiguration({ isVisible: false, message: "" });
           }}
-          variant="warning"
+          variant="primary"
           dismissible
         >
           {message}
         </BootstrapAlert>
       )}
-    </div>
+    </>
   );
 }
 

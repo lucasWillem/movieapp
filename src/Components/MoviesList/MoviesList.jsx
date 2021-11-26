@@ -1,34 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
+import "./MoviesList.css";
 import MovieCard from "./SubComponents";
-import { Button, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function MoviesList({ actionButtonText, movies, variant }) {
-  const [favouriteMoviesAreVisible, setFavouriteMoviesAreVisible] =
-    useState(false);
-
+function MoviesList({ movies, variant }) {
   return (
     <Container>
       <Row>
-        {movies &&
-          movies.map((movie, index) => (
-            <MovieCard
-              key={`${movie.imdbID}-${index}`}
-              movie={movie}
-              variant={variant}
-            />
-          ))}
+        {movies.map((movie, index) => (
+          <MovieCard
+            key={`${movie.imdbID}-${index}`}
+            movie={movie}
+            variant={variant}
+          />
+        ))}
       </Row>
     </Container>
   );
 }
 
 MoviesList.defaultProps = {
-  actionButtonText: "Favourites",
+  movies: [],
 };
 
 MoviesList.propTypes = {
-  actionButtonText: PropTypes.string,
+  variant: PropTypes.string.isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Year: PropTypes.string.isRequired,
+      imdbID: PropTypes.string.isRequired,
+      Type: PropTypes.string.isRequired,
+      Poster: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
-export default MoviesList;
+export default React.memo(MoviesList);
