@@ -54,4 +54,13 @@ ToggleControl.defaultProps = {
   ],
 };
 
+ToggleControl.propTypes = {
+  radioButtonOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
 export default React.memo(ToggleControl);
