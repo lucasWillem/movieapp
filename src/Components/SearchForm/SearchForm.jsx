@@ -28,18 +28,23 @@ function SearchForm({
 }) {
   const [searchText, setSearchText] = useState("");
 
+  const movieSearchResults = useStoreState((state) => state.movieResults);
+  const movieListVariation = useStoreState((state) => state.movieListVariation);
+
+  const favouriteMoviesIsVisible = useStoreState(
+    (state) => state.favouriteMoviesIsVisible
+  );
+
+  const setMovieListVariation = useStoreActions(
+    (actions) => actions.setMovieListVariation
+  );
+
   const fetchAndStoreMovieSearchResults = useStoreActions(
     (actions) => actions.fetchAndStoreMovieSearchResults
   );
 
   const setFavouriteMoviesVisibility = useStoreActions(
     (actions) => actions.setFavouriteMoviesVisibility
-  );
-
-  const movieSearchResults = useStoreState((state) => state.movieResults);
-  const movieListVariation = useStoreState((state) => state.movieListVariation);
-  const favouriteMoviesIsVisible = useStoreState(
-    (state) => state.favouriteMoviesIsVisible
   );
 
   function determineMovieDisplayComponent() {
@@ -79,6 +84,14 @@ function SearchForm({
         : setFavouriteMoviesVisibility(true);
     },
     [favouriteMoviesIsVisible, setFavouriteMoviesVisibility]
+  );
+
+  const handleMovieListVariationChanged = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setMovieListVariation(e.currentTarget.value);
+    },
+    [setMovieListVariation]
   );
 
   return (
@@ -135,7 +148,14 @@ function SearchForm({
                 {movieSearchResults &&
                 movieSearchResults.length > 0 &&
                 !favouriteMoviesIsVisible ? (
-                  <ToggleControl />
+                  <ToggleControl
+                    onChange={handleMovieListVariationChanged}
+                    value={movieListVariation}
+                    radioButtonOptions={[
+                      { name: "Card", value: "card" },
+                      { name: "List", value: "list" },
+                    ]}
+                  />
                 ) : (
                   <Container style={{ height: 50 }} />
                 )}
