@@ -104,9 +104,10 @@ function MovieCatalogue({
     (e) => {
       e.preventDefault();
       e.stopPropagation();
+      setFavouriteMoviesVisibility(false);
       fetchAndStoreMovieSearchResults(searchText);
     },
-    [fetchAndStoreMovieSearchResults, searchText]
+    [fetchAndStoreMovieSearchResults, searchText, setFavouriteMoviesVisibility]
   );
 
   const handleFavouritesToggled = useCallback(
@@ -232,7 +233,7 @@ function MovieCatalogue({
         <Row>
           <Col lg={8}>
             <Stack gap={2}>
-              <Form>
+              <Form onSubmit={handleSearchRequested}>
                 <Form.Group controlId="movieSeachText">
                   <FormControl
                     onChange={handleSearchTextEntered}
