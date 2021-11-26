@@ -23,10 +23,17 @@ function MovieTable({ movies }) {
             </td>
             <td>
               <div>
-                <h6>
-                  {movie.Title} ({movie.Year})
-                </h6>
-                <p>{movie.Type}</p>
+                <h6>{movie.Title}</h6>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <p>{movie.Year}</p>
+                  <p>({movie.Type})</p>
+                </div>
               </div>
             </td>
           </tr>
