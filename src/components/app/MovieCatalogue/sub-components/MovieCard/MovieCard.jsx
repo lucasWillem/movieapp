@@ -11,7 +11,7 @@ function MovieCard({ movie, variant, onClick, onRemoveFromFavouritesClick }) {
     width: "10rem",
     margin: 10,
     padding: 5,
-    cursor: variant === "favourites" ? "auto" : "pointer",
+    cursor: "pointer",
   };
 
   const closeButtonWrapper = {
