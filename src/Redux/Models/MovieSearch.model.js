@@ -16,8 +16,7 @@ const movieSearchModel = {
         method: "GET",
         headers: {
           "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-          "x-rapidapi-key":
-            "a6ae80c0edmshfe5b7a5058982c3p14ee45jsndb0cf2e7ec93",
+          "x-rapidapi-key": `${process.env.REACT_APP_SEARCH_MOVIES_API_KEY}`,
         },
       }
     )
