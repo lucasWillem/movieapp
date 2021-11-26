@@ -5,30 +5,22 @@ import { Table, Image } from "react-bootstrap";
 import "./MovieTable.css";
 import imageNotFound from "assets/images/image-not-found.png";
 
-const imageStyle = { width: 100 };
-
 function MovieTable({ movies }) {
   return (
-    <Table style={{ width: "60%" }} bordered hover>
+    <Table className={"table"} bordered hover>
       <tbody>
         {movies.map((movie, index) => (
           <tr key={`${movie.imdbID}-${index}`}>
             <td>
               <Image
-                style={imageStyle}
+                className={"image"}
                 src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
               />
             </td>
             <td>
               <div>
                 <h6>{movie.Title}</h6>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
+                <div className={"year-and-type-container"}>
                   <p>{movie.Year}</p>
                   <p>({movie.Type})</p>
                 </div>

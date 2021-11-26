@@ -1,0 +1,14 @@
+.details-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.details-heading {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}

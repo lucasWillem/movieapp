@@ -7,14 +7,7 @@ import Container from "components/global/Container";
 
 function ToggleControl({ onChange, value, radioButtonOptions }) {
   return (
-    <Container
-      style={{
-        height: 50,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Container className={"toggle-control-wrapper"}>
       <ButtonGroup>
         {radioButtonOptions.map((radio, index) => (
           <ToggleButton
