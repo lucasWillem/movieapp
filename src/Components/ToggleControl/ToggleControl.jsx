@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { useStoreActions } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
 function ToggleControl({ radioButtonOptions }) {
-  const [radioValue, setRadioValue] = useState("card");
-
   const setMovieListVariation = useStoreActions(
     (actions) => actions.setMovieListVariation
   );
 
-  React.useEffect(() => {
-    setMovieListVariation(radioValue);
-  }, [radioValue, setMovieListVariation]);
+  const movieListVariation = useStoreState((state) => state.movieListVariation);
 
   return (
     <div style={{ marginTop: 20 }}>
@@ -27,9 +23,9 @@ function ToggleControl({ radioButtonOptions }) {
             variant="primary"
             name="radio"
             value={radio.value}
-            checked={radioValue === radio.value}
+            checked={movieListVariation === radio.value}
             onChange={(e) => {
-              setRadioValue(e.currentTarget.value);
+              setMovieListVariation(e.currentTarget.value);
             }}
           >
             {radio.name}
