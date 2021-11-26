@@ -14,20 +14,13 @@ function MovieModal({
   onRemoveFromFavourites,
   isAFavourite,
 }) {
-  const detailsWrapper = {
-    display: "flex",
-    flexDirection: "row",
-  };
-
-  const detailHeading = { fontWeight: "bold", marginRight: 10 };
-
   return (
     <BootstrapModal show={isVisible} onHide={onModalHidden}>
       <BootstrapModal.Header closeButton>
         <BootstrapModal.Title>{movie.Title}</BootstrapModal.Title>
       </BootstrapModal.Header>
       <>
-        <Container style={{ display: "flex", justifyContent: "center" }}>
+        <Container className={"image-container"}>
           <Image
             fluid
             src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
@@ -38,64 +31,64 @@ function MovieModal({
           {movie.Plot ? movie.Plot : "no plot information available"}
         </BootstrapModal.Body>
         <BootstrapModal.Body>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> Genre:</p>
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> Genre:</p>
             <p>
               {movie.Genre !== "N/A"
                 ? movie.Genre
                 : "no genre information available"}
             </p>
           </div>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> Released on:</p>
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> Released on:</p>
             <p>
               {movie.Released !== "N/A"
                 ? movie.Released
                 : "no release date available"}
             </p>
           </div>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> Director:</p>{" "}
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> Director:</p>{" "}
             <p>
               {movie.Director !== "N/A"
                 ? movie.Director
                 : "no director name(s) available"}
             </p>
           </div>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> Writer(s):</p>
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> Writer(s):</p>
             <p>
               {movie.Writer !== "N/A"
                 ? movie.Writer
                 : "no writer name(s) available"}
             </p>
           </div>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> Featuring:</p>
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> Featuring:</p>
             <p>
               {movie.Actors !== "N/A"
                 ? movie.Actors
                 : "no actor name(s) available"}
             </p>
           </div>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> Language(s):</p>{" "}
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> Language(s):</p>{" "}
             <p>
               {movie.Language !== "N/A"
                 ? movie.Language
                 : "no language information available"}
             </p>
           </div>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> Meta Score:</p>
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> Meta Score:</p>
             <p>
               {movie.Metascore !== "N/A"
                 ? movie.Metascore
                 : "no meta rating available"}
             </p>
           </div>
-          <div style={detailsWrapper}>
-            <p style={detailHeading}> IMDB:</p>
+          <div className={"details-wrapper"}>
+            <p className={"details-heading"}> IMDB:</p>
             <p>
               {movie.imdbRating !== "N/A"
                 ? movie.imdbRating
