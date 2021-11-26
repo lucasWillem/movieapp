@@ -1,4 +1,7 @@
-node_modules
-src/assets
-*.css
-*.svg
+**/*.css
+**/*.svg
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+src/assets/
