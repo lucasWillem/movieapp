@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import "./MoviesList.css";
 import MovieCard from "./SubComponents";
-import { Button, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 function MoviesList({ actionButtonText, movies, variant }) {
-  const [favouriteMoviesAreVisible, setFavouriteMoviesAreVisible] =
-    useState(false);
-
   return (
     <Container>
       <Row>
@@ -31,4 +29,4 @@ MoviesList.propTypes = {
   actionButtonText: PropTypes.string,
 };
 
-export default MoviesList;
+export default React.memo(MoviesList);

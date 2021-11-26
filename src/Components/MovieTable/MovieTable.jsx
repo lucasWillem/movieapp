@@ -5,17 +5,17 @@ import imageNotFound from "../../assets/images/image-not-found.png";
 
 import { Table, Image } from "react-bootstrap";
 
-// import { useStoreState, useStoreActions } from "easy-peasy";
+const imageStyle = { width: 100 };
 
 function MovieTable({ movies }) {
   return (
-    <Table bordered hover>
+    <Table style={{ width: "60%" }} bordered hover>
       <tbody>
         {movies.map((movie) => (
           <tr>
             <td>
               <Image
-                style={{ width: 100 }}
+                style={imageStyle}
                 src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
               />
             </td>

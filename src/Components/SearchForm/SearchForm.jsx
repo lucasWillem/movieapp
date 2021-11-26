@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import MoviesList from "../MoviesList";
 import ToggleControl from "../ToggleControl";
 import MovieTable from "../MovieTable";
+import Container from "../Container";
 
 import FavouriteMovies from "../FavouriteMovies";
 
@@ -11,7 +12,7 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import {
   Form,
   FormControl,
-  Container,
+  Container as BootstrapContainer,
   Row,
   Col,
   Button,
@@ -50,28 +51,33 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
   }
 
   return (
-    <Container>
-      <Form>
-        <Stack gap={4}>
-          <Row>
-            <Col>
-              <h4>{formTitle}</h4>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={9} sm={9} xs={9}>
-              <Form.Group controlId="movieSeachText">
-                <FormControl
-                  onChange={(e) => {
-                    setSearchText(e.target.value);
-                  }}
-                  placeholder={placeholderText}
-                  value={searchText}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={3} sm={3} xs={3}>
-              <Stack direction="horizontal" gap={2}>
+    <BootstrapContainer>
+      <Stack gap={2} lg={6}>
+        <Row>
+          <Col>
+            <h4>{formTitle}</h4>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={8}>
+            <Stack gap={2}>
+              <Form>
+                <Form.Group controlId="movieSeachText">
+                  <FormControl
+                    onChange={(e) => {
+                      setSearchText(e.target.value);
+                    }}
+                    placeholder={placeholderText}
+                    value={searchText}
+                  />
+                </Form.Group>
+              </Form>
+
+              <Stack
+                style={{ display: "flex", flexWrap: "wrap", marginTop: 5 }}
+                direction="horizontal"
+                gap={2}
+              >
                 <Button
                   variant="outline-dark"
                   type="submit"
@@ -84,41 +90,53 @@ function SearchForm({ placeholderText, actionButtonText, formTitle }) {
                   {actionButtonText}
                 </Button>
 
-                {favouriteMoviesIsVisible ? (
+                {
                   <Button
-                    variant="outline-primary"
+                    style={{
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      minwidth: 50,
+                    }}
+                    variant={
+                      favouriteMoviesIsVisible
+                        ? "outline-primary"
+                        : "outline-primary"
+                    }
                     onClick={() => {
-                      setFavouriteMoviesVisibility(false);
+                      favouriteMoviesIsVisible
+                        ? setFavouriteMoviesVisibility(false)
+                        : setFavouriteMoviesVisibility(true);
                     }}
                   >
-                    Back To Search
+                    {favouriteMoviesIsVisible ? "Search Again" : "Favourites"}
                   </Button>
+                }
+                {movieSearchResults &&
+                movieSearchResults.length > 0 &&
+                !favouriteMoviesIsVisible ? (
+                  <ToggleControl />
                 ) : (
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => {
-                      setFavouriteMoviesVisibility(true);
-                    }}
-                  >
-                    Show Favourites
-                  </Button>
+                  <Container style={{ height: 50 }} />
                 )}
               </Stack>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={7} sm={7} xs={7}>
+            </Stack>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={9}>
+            <Container
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               {determineMovieDisplayComponent()}
-            </Col>
-            <Col md={5} sm={5} xs={5}>
-              {movieSearchResults &&
-                movieSearchResults.length > 0 &&
-                !favouriteMoviesIsVisible && <ToggleControl />}
-            </Col>
-          </Row>
-        </Stack>
-      </Form>
-    </Container>
+            </Container>
+          </Col>
+        </Row>
+      </Stack>
+    </BootstrapContainer>
   );
 }
 

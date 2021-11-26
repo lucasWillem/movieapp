@@ -3,23 +3,23 @@ import "./LoadingDisplay.css";
 
 import { useStoreState } from "easy-peasy";
 
-import { Spinner, Row, Col } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
 function LoadingDisplay(props) {
   const isLoaderVisible = useStoreState((state) => state.isLoaderVisible);
 
+  const loadingDisplay = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "fixed",
+    top: 50,
+    left: 0,
+    right: 0,
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "fixed",
-        top: 50,
-        left: 0,
-        right: 0,
-      }}
-    >
+    <div style={loadingDisplay}>
       {isLoaderVisible && <Spinner animation="border" role="status" />}
     </div>
   );

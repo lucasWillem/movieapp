@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
+import "./ToggleControl.css";
 import PropTypes from "prop-types";
+
+import Container from "../Container";
 
 import { useStoreActions, useStoreState } from "easy-peasy";
 
@@ -13,7 +16,14 @@ function ToggleControl({ radioButtonOptions }) {
   const movieListVariation = useStoreState((state) => state.movieListVariation);
 
   return (
-    <div style={{ marginTop: 20 }}>
+    <Container
+      style={{
+        height: 50,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <ButtonGroup>
         {radioButtonOptions.map((radio, index) => (
           <ToggleButton
@@ -25,6 +35,7 @@ function ToggleControl({ radioButtonOptions }) {
             value={radio.value}
             checked={movieListVariation === radio.value}
             onChange={(e) => {
+              e.stopPropagation();
               setMovieListVariation(e.currentTarget.value);
             }}
           >
@@ -32,14 +43,14 @@ function ToggleControl({ radioButtonOptions }) {
           </ToggleButton>
         ))}
       </ButtonGroup>
-    </div>
+    </Container>
   );
 }
 
 ToggleControl.defaultProps = {
   radioButtonOptions: [
-    { name: "Card View", value: "card" },
-    { name: "List View", value: "list" },
+    { name: "Card", value: "card" },
+    { name: "List", value: "list" },
   ],
 };
 
