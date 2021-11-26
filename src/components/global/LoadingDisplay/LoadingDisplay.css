@@ -1,0 +1,9 @@
+.loading-display-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+}
