@@ -1,3 +1,3 @@
-import movieSearchResults from "./MoviesList";
+import MoviesList from "./MoviesList";
 
-export default movieSearchResults;
+export default MoviesList;

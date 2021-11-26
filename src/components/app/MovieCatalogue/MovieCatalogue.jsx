@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useStoreActions, useStoreState } from "easy-peasy";
 
@@ -18,6 +18,8 @@ import Container from "../../global/Container";
 import MoviesList from "./sub-components/MoviesList";
 import MovieTable from "./sub-components/MovieTable";
 import FavouriteMovies from "./sub-components/FavouriteMovies";
+import MovieCard from "./sub-components/MovieCard";
+import MovieModal from "./sub-components/MovieModal";
 
 function MovieCatalogue({
   placeholderText,
@@ -30,11 +32,23 @@ function MovieCatalogue({
 
   const movieSearchResults = useStoreState((state) => state.movieResults);
   const movieListVariation = useStoreState((state) => state.movieListVariation);
-
+  const favouriteMovies = useStoreState((state) => state.favouriteMovies);
+  const { isVisible: isMovieModalVisible } = useStoreState(
+    (state) => state.modalConfiguration
+  );
+  const addToFavouriteMovies = useStoreActions(
+    (actions) => actions.addToFavouriteMovies
+  );
+  const setModalConfiguration = useStoreActions(
+    (actions) => actions.setModalConfiguration
+  );
+  const storeSelectedMovie = useStoreActions(
+    (actions) => actions.storeSelectedMovie
+  );
   const favouriteMoviesIsVisible = useStoreState(
     (state) => state.favouriteMoviesIsVisible
   );
-
+  const selectedMovie = useStoreState((state) => state.selectedMovie);
   const setMovieListVariation = useStoreActions(
     (actions) => actions.setMovieListVariation
   );
@@ -47,19 +61,40 @@ function MovieCatalogue({
     (actions) => actions.setFavouriteMoviesVisibility
   );
 
-  function determineMovieDisplayComponent() {
-    if (favouriteMoviesIsVisible) {
-      return <FavouriteMovies />;
-    }
+  const removeFromFavouriteMovies = useStoreActions(
+    (actions) => actions.removeFromFavouriteMovies
+  );
 
-    if (!favouriteMoviesIsVisible && movieListVariation === "card") {
-      return <MoviesList movies={movieSearchResults} variant="searchResults" />;
-    }
+  const setAlertConfiguration = useStoreActions(
+    (actions) => actions.setAlertConfiguration
+  );
 
-    if (!favouriteMoviesIsVisible && movieListVariation === "list") {
-      return <MovieTable movies={movieSearchResults} />;
-    }
-  }
+  const fetchAndStoreSelectedMovie = useStoreActions(
+    (actions) => actions.fetchAndStoreSelectedMovie
+  );
+
+  const resetStore = useCallback(() => {
+    setModalConfiguration({ isVisible: false });
+    storeSelectedMovie({});
+  }, [setModalConfiguration, storeSelectedMovie]);
+
+  const handleModalHidden = useCallback(() => resetStore(), [resetStore]);
+
+  const addToFavourites = useCallback(
+    (movie) => {
+      addToFavouriteMovies(movie);
+      resetStore();
+    },
+    [addToFavouriteMovies, resetStore]
+  );
+
+  const removeFromFavourites = useCallback(
+    (movie) => {
+      removeFromFavouriteMovies(movie);
+      resetStore();
+    },
+    [removeFromFavouriteMovies, resetStore]
+  );
 
   const handleSearchTextEntered = useCallback((e) => {
     e.stopPropagation();
@@ -93,6 +128,73 @@ function MovieCatalogue({
     },
     [setMovieListVariation]
   );
+
+  const handleMovieCardClicked = useCallback(
+    (movie) => {
+      movieListVariation !== "favourites" &&
+        fetchAndStoreSelectedMovie(movie.imdbID);
+    },
+    [fetchAndStoreSelectedMovie, movieListVariation]
+  );
+
+  const handleRemoveFromFavouritesClicked = useCallback(
+    (movie) => {
+      removeFromFavouriteMovies(movie);
+      setAlertConfiguration({
+        isVisible: true,
+        message: "Item removed from Favourites",
+      });
+    },
+    [removeFromFavouriteMovies, setAlertConfiguration]
+  );
+
+  const hasMoviesData = useMemo(
+    () => movieSearchResults && movieSearchResults.length > 0,
+    [movieSearchResults]
+  );
+
+  const displayComponent = useMemo(() => {
+    if (favouriteMoviesIsVisible) {
+      return <FavouriteMovies />;
+    }
+
+    if (
+      !favouriteMoviesIsVisible &&
+      movieListVariation === "card" &&
+      hasMoviesData
+    ) {
+      //prevent props overload
+
+      return (
+        <MoviesList>
+          {movieSearchResults.map((movie, index) => (
+            <MovieCard
+              key={`${movie.imdbID}-${index}`}
+              movie={movie}
+              variant={"searchResults"}
+              onClick={handleMovieCardClicked}
+              onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
+            />
+          ))}
+        </MoviesList>
+      );
+    }
+
+    if (
+      !favouriteMoviesIsVisible &&
+      movieListVariation === "list" &&
+      hasMoviesData
+    ) {
+      return <MovieTable movies={movieSearchResults} />;
+    }
+  }, [
+    favouriteMoviesIsVisible,
+    handleMovieCardClicked,
+    handleRemoveFromFavouritesClicked,
+    hasMoviesData,
+    movieListVariation,
+    movieSearchResults,
+  ]);
 
   return (
     <BootstrapContainer>
@@ -145,9 +247,7 @@ function MovieCatalogue({
                     ? backToSearchButtonText
                     : viewFavouritesButtonText}
                 </Button>
-                {movieSearchResults &&
-                movieSearchResults.length > 0 &&
-                !favouriteMoviesIsVisible ? (
+                {hasMoviesData && !favouriteMoviesIsVisible ? (
                   <ToggleControl
                     onChange={handleMovieListVariationChanged}
                     value={movieListVariation}
@@ -171,11 +271,21 @@ function MovieCatalogue({
                 alignItems: "center",
               }}
             >
-              {determineMovieDisplayComponent()}
+              {displayComponent}
             </Container>
           </Col>
         </Row>
       </Stack>
+      <MovieModal
+        movie={selectedMovie}
+        isVisible={isMovieModalVisible}
+        onModalHidden={handleModalHidden}
+        onAddToFavourites={addToFavourites}
+        onRemoveFromFavourites={removeFromFavourites}
+        isAFavourite={favouriteMovies.some(
+          (faveMovie) => faveMovie.imdbID === selectedMovie.imdbID
+        )}
+      />
     </BootstrapContainer>
   );
 }

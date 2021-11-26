@@ -23,7 +23,6 @@ const selectedMovieModel = {
         actions.storeSelectedMovie(result);
         actions.setModalConfiguration({
           isVisible: true,
-          content: result,
         });
       })
       .catch((err) => {
