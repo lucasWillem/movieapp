@@ -13,14 +13,6 @@ function Alert(props) {
     (actions) => actions.setAlertConfiguration
   );
 
-  const alertStyles = {
-    position: "fixed",
-    top: "5%",
-    left: "5%",
-    right: "5%",
-    zIndex: 100,
-  };
-
   const handleOnModalClose = useCallback(() => {
     setAlertConfiguration({ isVisible: false, message: "" });
   }, [setAlertConfiguration]);
@@ -29,7 +21,7 @@ function Alert(props) {
     <>
       {isVisible && (
         <BootstrapAlert
-          style={alertStyles}
+          className={"alert-modal"}
           onClose={handleOnModalClose}
           variant="primary"
           dismissible
