@@ -6,33 +6,18 @@ import imageNotFound from "assets/images/image-not-found.png";
 import "./MovieCard.css";
 
 function MovieCard({ movie, variant, onClick, onRemoveFromFavouritesClick }) {
-  const cardWrapper = {
-    width: "10rem",
-    margin: 10,
-    padding: 5,
-    cursor: "pointer",
-  };
-
-  const closeButtonWrapper = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  };
-
-  const closeButton = { height: 8, width: 8, margin: 5, marginBottom: 15 };
-
   return (
     <Card
-      style={cardWrapper}
+      className={"card-wrapper"}
       onClick={(e) => {
         e.stopPropagation();
         onClick(movie);
       }}
     >
-      <div style={closeButtonWrapper}>
+      <div className={"close-button-wrapper"}>
         {variant === "favourites" && (
           <CloseButton
-            style={closeButton}
+            className={"close-button"}
             onClick={(e) => {
               e.stopPropagation();
               onRemoveFromFavouritesClick(movie);
@@ -48,13 +33,7 @@ function MovieCard({ movie, variant, onClick, onRemoveFromFavouritesClick }) {
       />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className={"card-year-and-type-wrapper"}>
           <Card.Text>{movie.Year}</Card.Text>
           <Card.Text>({movie.Type})</Card.Text>
         </div>
