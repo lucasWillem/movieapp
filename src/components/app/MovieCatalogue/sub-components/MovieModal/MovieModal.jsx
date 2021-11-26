@@ -104,20 +104,21 @@ function MovieModal({
             <p>{movie.imdbRating}</p>
           </div>
           <BootstrapModal.Footer>
-            <Button
-              disabled={isAFavourite === false}
-              variant="outline-primary"
-              onClick={() => onAddToFavourites(movie)}
-            >
-              Add To Favourites
-            </Button>
-            <Button
-              disabled={isAFavourite === true}
-              variant="outline-dark"
-              onClick={() => onRemoveFromFavourites(movie)}
-            >
-              Remove From Favourites
-            </Button>
+            {isAFavourite ? (
+              <Button
+                variant="outline-dark"
+                onClick={() => onRemoveFromFavourites(movie)}
+              >
+                Remove From Favourites
+              </Button>
+            ) : (
+              <Button
+                variant="outline-primary"
+                onClick={() => onAddToFavourites(movie)}
+              >
+                Add To Favourites
+              </Button>
+            )}
           </BootstrapModal.Footer>
         </BootstrapModal.Body>
       </>

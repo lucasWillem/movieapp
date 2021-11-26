@@ -65,7 +65,7 @@ function MovieCard({ movie, variant, onClick, onRemoveFromFavouritesClick }) {
 }
 
 MovieCard.propTypes = {
-  variant: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(["favourites", "searchResults"]).isRequired,
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Year: PropTypes.string.isRequired,

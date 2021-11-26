@@ -12,7 +12,7 @@ function MoviesList({ children }) {
 }
 
 MoviesList.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default React.memo(MoviesList);

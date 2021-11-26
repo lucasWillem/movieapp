@@ -17,7 +17,6 @@ import Container from "../../global/Container";
 
 import MoviesList from "./sub-components/MoviesList";
 import MovieTable from "./sub-components/MovieTable";
-import FavouriteMovies from "./sub-components/FavouriteMovies";
 import MovieCard from "./sub-components/MovieCard";
 import MovieModal from "./sub-components/MovieModal";
 
@@ -153,9 +152,34 @@ function MovieCatalogue({
     [movieSearchResults]
   );
 
+  const isViewingFavouriteMovie = useMemo(
+    () =>
+      favouriteMovies.find(
+        (faveMovie) => faveMovie.imdbID === selectedMovie.imdbID
+      ) !== undefined,
+    [favouriteMovies, selectedMovie.imdbID]
+  );
+
+  const hasSelectedAMovie = useMemo(
+    () => Object.keys(selectedMovie).length > 0,
+    [selectedMovie]
+  );
+
   const displayComponent = useMemo(() => {
     if (favouriteMoviesIsVisible) {
-      return <FavouriteMovies />;
+      return (
+        <MoviesList>
+          {favouriteMovies.map((movie, index) => (
+            <MovieCard
+              key={`${movie.imdbID}-${index}`}
+              movie={movie}
+              variant={"favourites"}
+              onClick={handleMovieCardClicked}
+              onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
+            />
+          ))}
+        </MoviesList>
+      );
     }
 
     if (
@@ -188,6 +212,7 @@ function MovieCatalogue({
       return <MovieTable movies={movieSearchResults} />;
     }
   }, [
+    favouriteMovies,
     favouriteMoviesIsVisible,
     handleMovieCardClicked,
     handleRemoveFromFavouritesClicked,
@@ -276,16 +301,16 @@ function MovieCatalogue({
           </Col>
         </Row>
       </Stack>
-      <MovieModal
-        movie={selectedMovie}
-        isVisible={isMovieModalVisible}
-        onModalHidden={handleModalHidden}
-        onAddToFavourites={addToFavourites}
-        onRemoveFromFavourites={removeFromFavourites}
-        isAFavourite={favouriteMovies.some(
-          (faveMovie) => faveMovie.imdbID === selectedMovie.imdbID
-        )}
-      />
+      {hasSelectedAMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          isVisible={isMovieModalVisible}
+          onModalHidden={handleModalHidden}
+          onAddToFavourites={addToFavourites}
+          onRemoveFromFavourites={removeFromFavourites}
+          isAFavourite={isViewingFavouriteMovie}
+        />
+      )}
     </BootstrapContainer>
   );
 }
