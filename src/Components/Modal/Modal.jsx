@@ -55,34 +55,67 @@ function Modal(props) {
           />
         </Container>
 
-        <BootstrapModal.Body>{content.Plot}</BootstrapModal.Body>
+        <BootstrapModal.Body>
+          {content.Plot ? content.Plot : "no plot information available"}
+        </BootstrapModal.Body>
         <BootstrapModal.Body>
           <div style={detailsWrapper}>
             <p style={detailHeading}> Genre:</p>
-            <p>{content.Genre}</p>
+            <p>
+              {content.Genre ? content.Genre : "no genre information available"}
+            </p>
           </div>
           <div style={detailsWrapper}>
             <p style={detailHeading}> Released on:</p>
-            <p>{content.Released}</p>
+            <p>
+              {content.Released
+                ? content.Released
+                : "no release date available"}
+            </p>
           </div>
           <div style={detailsWrapper}>
-            <p style={detailHeading}> Director:</p> <p>{content.Director}</p>
+            <p style={detailHeading}> Director:</p>{" "}
+            <p>
+              {content.Director
+                ? content.Director
+                : "no director name(s) available"}
+            </p>
           </div>
           <div style={detailsWrapper}>
-            <p style={detailHeading}> Writer(s):</p> <p>{content.Writer}</p>
+            <p style={detailHeading}> Writer(s):</p>
+            <p>
+              {content.Writer ? content.Writer : "no writer name(s) available"}
+            </p>
           </div>
           <div style={detailsWrapper}>
-            <p style={detailHeading}> Featuring:</p> <p>{content.Actors}</p>
+            <p style={detailHeading}> Featuring:</p>
+            <p>
+              {content.Actors ? content.Actors : "no actor name(s) available"}
+            </p>
           </div>
           <div style={detailsWrapper}>
-            <p style={detailHeading}> Language(s):</p> <p>{content.Language}</p>
+            <p style={detailHeading}> Language(s):</p>{" "}
+            <p>
+              {content.Language
+                ? content.Language
+                : "no language information available"}
+            </p>
           </div>
           <div style={detailsWrapper}>
             <p style={detailHeading}> Meta Score:</p>
-            <p>{content.Metascore}</p>
+            <p>
+              {content.Metascore
+                ? content.Metascore
+                : "no Meta rating available"}
+            </p>
           </div>
           <div style={detailsWrapper}>
             <p style={detailHeading}> IMDB:</p>
+            <p>
+              {content.imdbRating
+                ? content.imdbRating
+                : "no IMDB rating available"}
+            </p>
             <p>{content.imdbRating}</p>
           </div>
           <BootstrapModal.Footer>
