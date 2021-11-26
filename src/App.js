@@ -1,10 +1,10 @@
 import { BrowserRouter } from "react-router-dom";
 import Navigator from "./Navigator";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import LoadingDisplay from "./Components/LoadingDisplay";
 import Alert from "./Components/Alert";
 import Modal from "./Components/Modal";
+require("dotenv").config();
 
 function App() {
   return (
