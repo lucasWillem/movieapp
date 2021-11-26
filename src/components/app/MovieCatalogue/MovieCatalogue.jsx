@@ -308,7 +308,7 @@ MovieCatalogue.defaultProps = {
   placeholderText: "Search through movies",
   searchButtonText: "Find",
   viewFavouritesButtonText: "Favourites",
-  backToSearchButtonText: "Search Again",
+  backToSearchButtonText: "Search Results",
   formTitle: "Find your favourite movies",
 };
 
