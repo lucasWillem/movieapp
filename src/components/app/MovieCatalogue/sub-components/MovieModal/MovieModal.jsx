@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./MovieModal.css";
-import imageNotFound from "public/images/image-not-found.png";
+import imageNotFound from "assets/images/image-not-found.png";
 import Container from "../../../../global/Container";
 
 import { Modal as BootstrapModal, Image, Button } from "react-bootstrap";
@@ -133,6 +133,15 @@ MovieModal.propTypes = {
     imdbID: PropTypes.string.isRequired,
     Type: PropTypes.string.isRequired,
     Poster: PropTypes.string.isRequired,
+    Plot: PropTypes.string.isRequired,
+    Genre: PropTypes.string.isRequired,
+    Director: PropTypes.string.isRequired,
+    Metascore: PropTypes.string.isRequired,
+    Language: PropTypes.string.isRequired,
+    Writer: PropTypes.string.isRequired,
+    Actors: PropTypes.string.isRequired,
+    imdbRating: PropTypes.string.isRequired,
+    Released: PropTypes.string.isRequired,
   }).isRequired,
   isVisible: PropTypes.bool,
   onModalHidden: PropTypes.func.isRequired,
