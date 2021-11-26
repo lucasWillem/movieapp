@@ -279,7 +279,12 @@ function MovieCatalogue({
         </Row>
         <Row>
           <Col lg={9}>
-            <Container className={"results-container"}>
+            <Container
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               {displayComponent}
             </Container>
           </Col>

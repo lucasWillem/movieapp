@@ -20,7 +20,12 @@ function MovieModal({
         <BootstrapModal.Title>{movie.Title}</BootstrapModal.Title>
       </BootstrapModal.Header>
       <>
-        <Container className={"image-container"}>
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <Image
             fluid
             src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}

@@ -4,8 +4,3 @@
   text-overflow: ellipsis;
   min-width: 50px;
 }
-
-.results-container {
-  display: flex;
-  align-items: center;
-}
