@@ -62,13 +62,15 @@ function Modal(props) {
           <div style={detailsWrapper}>
             <p style={detailHeading}> Genre:</p>
             <p>
-              {content.Genre ? content.Genre : "no genre information available"}
+              {content.Genre !== "N/A"
+                ? content.Genre
+                : "no genre information available"}
             </p>
           </div>
           <div style={detailsWrapper}>
             <p style={detailHeading}> Released on:</p>
             <p>
-              {content.Released
+              {content.Released !== "N/A"
                 ? content.Released
                 : "no release date available"}
             </p>
@@ -76,7 +78,7 @@ function Modal(props) {
           <div style={detailsWrapper}>
             <p style={detailHeading}> Director:</p>{" "}
             <p>
-              {content.Director
+              {content.Director !== "N/A"
                 ? content.Director
                 : "no director name(s) available"}
             </p>
@@ -84,19 +86,23 @@ function Modal(props) {
           <div style={detailsWrapper}>
             <p style={detailHeading}> Writer(s):</p>
             <p>
-              {content.Writer ? content.Writer : "no writer name(s) available"}
+              {content.Writer !== "N/A"
+                ? content.Writer
+                : "no writer name(s) available"}
             </p>
           </div>
           <div style={detailsWrapper}>
             <p style={detailHeading}> Featuring:</p>
             <p>
-              {content.Actors ? content.Actors : "no actor name(s) available"}
+              {content.Actors !== "N/A"
+                ? content.Actors
+                : "no actor name(s) available"}
             </p>
           </div>
           <div style={detailsWrapper}>
             <p style={detailHeading}> Language(s):</p>{" "}
             <p>
-              {content.Language
+              {content.Language !== "N/A"
                 ? content.Language
                 : "no language information available"}
             </p>
@@ -104,15 +110,15 @@ function Modal(props) {
           <div style={detailsWrapper}>
             <p style={detailHeading}> Meta Score:</p>
             <p>
-              {content.Metascore
+              {content.Metascore !== "N/A"
                 ? content.Metascore
-                : "no Meta rating available"}
+                : "no meta rating available"}
             </p>
           </div>
           <div style={detailsWrapper}>
             <p style={detailHeading}> IMDB:</p>
             <p>
-              {content.imdbRating
+              {content.imdbRating !== "N/A"
                 ? content.imdbRating
                 : "no IMDB rating available"}
             </p>
