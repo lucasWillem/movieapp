@@ -4,7 +4,7 @@ import MovieCard from "./SubComponents";
 import { Container, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function MoviesList({ actionButtonText, movies, variant }) {
+function MoviesList({ movies, variant }) {
   return (
     <Container>
       <Row>
@@ -21,12 +21,19 @@ function MoviesList({ actionButtonText, movies, variant }) {
   );
 }
 
-MoviesList.defaultProps = {
-  actionButtonText: "Favourites",
-};
+MoviesList.defaultProps = {};
 
 MoviesList.propTypes = {
-  actionButtonText: PropTypes.string,
+  variant: PropTypes.string.isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Year: PropTypes.string.isRequired,
+      imdbID: PropTypes.string.isRequired,
+      Type: PropTypes.string.isRequired,
+      Poster: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default React.memo(MoviesList);
