@@ -1,12 +1,5 @@
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import MoviesList from "../MoviesList";
-import ToggleControl from "../ToggleControl";
-import MovieTable from "../MovieTable";
-import Container from "../Container";
-
-import FavouriteMovies from "../FavouriteMovies";
-
 import { useStoreActions, useStoreState } from "easy-peasy";
 
 import {
@@ -19,7 +12,14 @@ import {
   Stack,
 } from "react-bootstrap";
 
-function SearchForm({
+import ToggleControl from "../../global/ToggleControl";
+import Container from "../../global/Container";
+
+import MoviesList from "./sub-components/MoviesList";
+import MovieTable from "./sub-components/MovieTable";
+import FavouriteMovies from "./sub-components/FavouriteMovies";
+
+function MovieCatalogue({
   placeholderText,
   searchButtonText,
   backToSearchButtonText,
@@ -180,7 +180,7 @@ function SearchForm({
   );
 }
 
-SearchForm.defaultProps = {
+MovieCatalogue.defaultProps = {
   placeholderText: "Search through movies",
   searchButtonText: "Find",
   viewFavouritesButtonText: "Favourites",
@@ -188,7 +188,7 @@ SearchForm.defaultProps = {
   formTitle: "Find your favourite movies",
 };
 
-SearchForm.propTypes = {
+MovieCatalogue.propTypes = {
   placeholderText: PropTypes.string,
   searchButtonText: PropTypes.string,
   viewFavouritesButtonText: PropTypes.string,
@@ -196,4 +196,4 @@ SearchForm.propTypes = {
   formTitle: PropTypes.string,
 };
 
-export default React.memo(SearchForm);
+export default React.memo(MovieCatalogue);

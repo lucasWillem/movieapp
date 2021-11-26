@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import MovieSearchPage from "../Pages/MovieSearchPage";
+import MovieSearchPage from "../../pages/MovieSearchPage/MovieSearchPage";
 
 function Navigator(props) {
   return (

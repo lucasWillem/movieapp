@@ -1,6 +1,6 @@
 import React from "react";
 import "./MoviesList.css";
-import MovieCard from "./SubComponents";
+import MovieCard from "../MovieCard";
 import { Container, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 

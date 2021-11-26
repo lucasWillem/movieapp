@@ -1,7 +1,7 @@
 import React from "react";
 import "./MovieTable.css";
 
-import imageNotFound from "../../assets/images/image-not-found.png";
+import imageNotFound from "../../../../../assets/images/image-not-found.png";
 
 import { Table, Image } from "react-bootstrap";
 

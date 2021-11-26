@@ -1,6 +1,6 @@
 import React from "react";
-import Container from "../Components/Container";
-import SearchForm from "../Components/SearchForm";
+import Container from "../../components/global/Container";
+import MovieCatalogue from "../../components/app/MovieCatalogue";
 
 import { Stack, Row, Col } from "react-bootstrap";
 
@@ -10,7 +10,7 @@ function MovieSearchPage(props) {
       <Row>
         <Col>
           <Stack gap={5}>
-            <SearchForm />
+            <MovieCatalogue />
           </Stack>
         </Col>
       </Row>

@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import "./MovieCard.css";
 import PropTypes from "prop-types";
 
-import imageNotFound from "../../../assets/images/image-not-found.png";
+import imageNotFound from "../../../../../assets/images/image-not-found.png";
 
 import { useStoreActions } from "easy-peasy";
 

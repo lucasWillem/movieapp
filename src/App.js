@@ -1,9 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
-import Navigator from "./Navigator";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LoadingDisplay from "./Components/LoadingDisplay";
-import Alert from "./Components/Alert";
-import Modal from "./Components/Modal";
+
+import Navigator from "./navigation/Navigator";
+
+import LoadingDisplay from "./components/global/LoadingDisplay";
+import Alert from "./components/global/Alert";
+
 require("dotenv").config();
 
 function App() {
@@ -11,7 +13,6 @@ function App() {
     <div className="App">
       <LoadingDisplay />
       <Alert />
-      <Modal />
       <BrowserRouter>
         <Navigator />
       </BrowserRouter>
