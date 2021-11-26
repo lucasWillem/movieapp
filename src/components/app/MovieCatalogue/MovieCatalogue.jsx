@@ -249,7 +249,6 @@ function MovieCatalogue({
               >
                 <Button
                   variant="outline-dark"
-                  type="submit"
                   disabled={searchText.trim().length === 0}
                   onClick={handleSearchRequested}
                 >
