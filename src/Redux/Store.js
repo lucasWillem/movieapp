@@ -1,7 +1,7 @@
 import { createStore, persist } from "easy-peasy";
 
-import model from "./models";
+import models from "./models";
 
-const store = createStore(persist(model));
+const store = createStore(persist(models));
 
 export { store };
