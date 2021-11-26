@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../MoviesList";
 import ToggleControl from "../ToggleControl";
@@ -56,6 +56,31 @@ function SearchForm({
     }
   }
 
+  const handleSearchTextEntered = useCallback((e) => {
+    e.stopPropagation();
+    setSearchText(e.target.value);
+  }, []);
+
+  const handleSearchRequested = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      fetchAndStoreMovieSearchResults(searchText);
+    },
+    [fetchAndStoreMovieSearchResults, searchText]
+  );
+
+  const handleFavouritesToggled = useCallback(
+    (e) => {
+      e.stopPropagation();
+
+      favouriteMoviesIsVisible
+        ? setFavouriteMoviesVisibility(false)
+        : setFavouriteMoviesVisibility(true);
+    },
+    [favouriteMoviesIsVisible, setFavouriteMoviesVisibility]
+  );
+
   return (
     <BootstrapContainer>
       <Stack gap={2} lg={6}>
@@ -70,15 +95,12 @@ function SearchForm({
               <Form>
                 <Form.Group controlId="movieSeachText">
                   <FormControl
-                    onChange={(e) => {
-                      setSearchText(e.target.value);
-                    }}
+                    onChange={handleSearchTextEntered}
                     placeholder={placeholderText}
                     value={searchText}
                   />
                 </Form.Group>
               </Form>
-
               <Stack
                 style={{ display: "flex", flexWrap: "wrap", marginTop: 5 }}
                 direction="horizontal"
@@ -88,38 +110,28 @@ function SearchForm({
                   variant="outline-dark"
                   type="submit"
                   disabled={searchText.trim().length === 0}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    fetchAndStoreMovieSearchResults(searchText);
-                  }}
+                  onClick={handleSearchRequested}
                 >
                   {searchButtonText}
                 </Button>
-
-                {
-                  <Button
-                    style={{
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      minwidth: 50,
-                    }}
-                    variant={
-                      favouriteMoviesIsVisible
-                        ? "outline-primary"
-                        : "outline-primary"
-                    }
-                    onClick={() => {
-                      favouriteMoviesIsVisible
-                        ? setFavouriteMoviesVisibility(false)
-                        : setFavouriteMoviesVisibility(true);
-                    }}
-                  >
-                    {favouriteMoviesIsVisible
-                      ? backToSearchButtonText
-                      : viewFavouritesButtonText}
-                  </Button>
-                }
+                <Button
+                  style={{
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    minwidth: 50,
+                  }}
+                  variant={
+                    favouriteMoviesIsVisible
+                      ? "outline-primary"
+                      : "outline-primary"
+                  }
+                  onClick={handleFavouritesToggled}
+                >
+                  {favouriteMoviesIsVisible
+                    ? backToSearchButtonText
+                    : viewFavouritesButtonText}
+                </Button>
                 {movieSearchResults &&
                 movieSearchResults.length > 0 &&
                 !favouriteMoviesIsVisible ? (

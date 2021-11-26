@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./ToggleControl.css";
 import PropTypes from "prop-types";
 
@@ -14,6 +14,14 @@ function ToggleControl({ radioButtonOptions }) {
   );
 
   const movieListVariation = useStoreState((state) => state.movieListVariation);
+
+  const handleToggleButtonChanged = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setMovieListVariation(e.currentTarget.value);
+    },
+    [setMovieListVariation]
+  );
 
   return (
     <Container
@@ -34,10 +42,7 @@ function ToggleControl({ radioButtonOptions }) {
             name="radio"
             value={radio.value}
             checked={movieListVariation === radio.value}
-            onChange={(e) => {
-              e.stopPropagation();
-              setMovieListVariation(e.currentTarget.value);
-            }}
+            onChange={handleToggleButtonChanged}
           >
             {radio.name}
           </ToggleButton>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./MovieCard.css";
 import PropTypes from "prop-types";
 
@@ -36,26 +36,31 @@ function MovieCard({ movie, variant }) {
 
   const closeButton = { height: 8, width: 8, margin: 5, marginBottom: 15 };
 
+  const handleMovieCardClicked = useCallback(
+    (e) => {
+      e.stopPropagation();
+      variant !== "favourites" && fetchAndStoreSelectedMovie(movie.imdbID);
+    },
+    [fetchAndStoreSelectedMovie, movie.imdbID, variant]
+  );
+
+  const handleCloseButtonClicked = useCallback(
+    (e) => {
+      e.stopPropagation();
+      removeFromFavouriteMovies(movie);
+      setAlertConfiguration({
+        isVisible: true,
+        message: "Item removed from Favourites",
+      });
+    },
+    [movie, removeFromFavouriteMovies, setAlertConfiguration]
+  );
+
   return (
-    <Card
-      style={cardWrapper}
-      onClick={() => {
-        variant !== "favourites" && fetchAndStoreSelectedMovie(movie.imdbID);
-      }}
-    >
+    <Card style={cardWrapper} onClick={handleMovieCardClicked}>
       <div style={closeButtonWrapper}>
         {variant === "favourites" && (
-          <CloseButton
-            style={closeButton}
-            onClick={(e) => {
-              e.stopPropagation();
-              removeFromFavouriteMovies(movie);
-              setAlertConfiguration({
-                isVisible: true,
-                message: "Item removed from Favourites",
-              });
-            }}
-          />
+          <CloseButton style={closeButton} onClick={handleCloseButtonClicked} />
         )}
       </div>
 
