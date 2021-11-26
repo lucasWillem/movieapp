@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useMemo } from 'react'
-import PropTypes from 'prop-types'
-import { useStoreActions, useStoreState } from 'easy-peasy'
+import React, { useState, useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 import {
   Form,
@@ -9,149 +9,149 @@ import {
   Row,
   Col,
   Button,
-  Stack
-} from 'react-bootstrap'
+  Stack,
+} from "react-bootstrap";
 
-import ToggleControl from '../../global/ToggleControl'
-import Container from '../../global/Container'
+import ToggleControl from "../../global/ToggleControl";
+import Container from "../../global/Container";
 
-import MoviesList from './sub-components/MoviesList'
-import MovieTable from './sub-components/MovieTable'
-import MovieCard from './sub-components/MovieCard'
-import MovieModal from './sub-components/MovieModal'
+import MoviesList from "./sub-components/MoviesList";
+import MovieTable from "./sub-components/MovieTable";
+import MovieCard from "./sub-components/MovieCard";
+import MovieModal from "./sub-components/MovieModal";
 
-function MovieCatalogue ({
+function MovieCatalogue({
   placeholderText,
   searchButtonText,
   backToSearchButtonText,
   viewFavouritesButtonText,
-  formTitle
+  formTitle,
 }) {
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState("");
 
-  const movieSearchResults = useStoreState((state) => state.movieResults)
-  const movieListVariation = useStoreState((state) => state.movieListVariation)
-  const favouriteMovies = useStoreState((state) => state.favouriteMovies)
+  const movieSearchResults = useStoreState((state) => state.movieResults);
+  const movieListVariation = useStoreState((state) => state.movieListVariation);
+  const favouriteMovies = useStoreState((state) => state.favouriteMovies);
   const { isVisible: isMovieModalVisible } = useStoreState(
     (state) => state.modalConfiguration
-  )
+  );
   const addToFavouriteMovies = useStoreActions(
     (actions) => actions.addToFavouriteMovies
-  )
+  );
   const setModalConfiguration = useStoreActions(
     (actions) => actions.setModalConfiguration
-  )
+  );
   const storeSelectedMovie = useStoreActions(
     (actions) => actions.storeSelectedMovie
-  )
+  );
   const favouriteMoviesIsVisible = useStoreState(
     (state) => state.favouriteMoviesIsVisible
-  )
-  const selectedMovie = useStoreState((state) => state.selectedMovie)
+  );
+  const selectedMovie = useStoreState((state) => state.selectedMovie);
   const setMovieListVariation = useStoreActions(
     (actions) => actions.setMovieListVariation
-  )
+  );
 
   const fetchAndStoreMovieSearchResults = useStoreActions(
     (actions) => actions.fetchAndStoreMovieSearchResults
-  )
+  );
 
   const setFavouriteMoviesVisibility = useStoreActions(
     (actions) => actions.setFavouriteMoviesVisibility
-  )
+  );
 
   const removeFromFavouriteMovies = useStoreActions(
     (actions) => actions.removeFromFavouriteMovies
-  )
+  );
 
   const setAlertConfiguration = useStoreActions(
     (actions) => actions.setAlertConfiguration
-  )
+  );
 
   const fetchAndStoreSelectedMovie = useStoreActions(
     (actions) => actions.fetchAndStoreSelectedMovie
-  )
+  );
 
   const resetStore = useCallback(() => {
-    setModalConfiguration({ isVisible: false })
-    storeSelectedMovie({})
-  }, [setModalConfiguration, storeSelectedMovie])
+    setModalConfiguration({ isVisible: false });
+    storeSelectedMovie({});
+  }, [setModalConfiguration, storeSelectedMovie]);
 
-  const handleModalHidden = useCallback(() => resetStore(), [resetStore])
+  const handleModalHidden = useCallback(() => resetStore(), [resetStore]);
 
   const addToFavourites = useCallback(
     (movie) => {
-      addToFavouriteMovies(movie)
-      resetStore()
+      addToFavouriteMovies(movie);
+      resetStore();
     },
     [addToFavouriteMovies, resetStore]
-  )
+  );
 
   const removeFromFavourites = useCallback(
     (movie) => {
-      removeFromFavouriteMovies(movie)
-      resetStore()
+      removeFromFavouriteMovies(movie);
+      resetStore();
     },
     [removeFromFavouriteMovies, resetStore]
-  )
+  );
 
   const handleSearchTextEntered = useCallback((e) => {
-    e.stopPropagation()
-    setSearchText(e.target.value)
-  }, [])
+    e.stopPropagation();
+    setSearchText(e.target.value);
+  }, []);
 
   const handleSearchRequested = useCallback(
     (e) => {
-      e.preventDefault()
-      e.stopPropagation()
-      setFavouriteMoviesVisibility(false)
-      fetchAndStoreMovieSearchResults(searchText)
+      e.preventDefault();
+      e.stopPropagation();
+      setFavouriteMoviesVisibility(false);
+      fetchAndStoreMovieSearchResults(searchText);
     },
     [fetchAndStoreMovieSearchResults, searchText, setFavouriteMoviesVisibility]
-  )
+  );
 
   const handleFavouritesToggled = useCallback(
     (e) => {
-      e.stopPropagation()
+      e.stopPropagation();
 
       favouriteMoviesIsVisible
         ? setFavouriteMoviesVisibility(false)
-        : setFavouriteMoviesVisibility(true)
+        : setFavouriteMoviesVisibility(true);
     },
     [favouriteMoviesIsVisible, setFavouriteMoviesVisibility]
-  )
+  );
 
   const handleMovieListVariationChanged = useCallback(
     (e) => {
-      e.stopPropagation()
-      setMovieListVariation(e.currentTarget.value)
+      e.stopPropagation();
+      setMovieListVariation(e.currentTarget.value);
     },
     [setMovieListVariation]
-  )
+  );
 
   const handleMovieCardClicked = useCallback(
     (movie) => {
-      movieListVariation !== 'favourites' &&
-        fetchAndStoreSelectedMovie(movie.imdbID)
+      movieListVariation !== "favourites" &&
+        fetchAndStoreSelectedMovie(movie.imdbID);
     },
     [fetchAndStoreSelectedMovie, movieListVariation]
-  )
+  );
 
   const handleRemoveFromFavouritesClicked = useCallback(
     (movie) => {
-      removeFromFavouriteMovies(movie)
+      removeFromFavouriteMovies(movie);
       setAlertConfiguration({
         isVisible: true,
-        message: 'Item removed from Favourites'
-      })
+        message: "Item removed from Favourites",
+      });
     },
     [removeFromFavouriteMovies, setAlertConfiguration]
-  )
+  );
 
   const hasMoviesData = useMemo(
     () => movieSearchResults && movieSearchResults.length > 0,
     [movieSearchResults]
-  )
+  );
 
   const isViewingFavouriteMovie = useMemo(
     () =>
@@ -159,12 +159,12 @@ function MovieCatalogue ({
         (faveMovie) => faveMovie.imdbID === selectedMovie.imdbID
       ) !== undefined,
     [favouriteMovies, selectedMovie.imdbID]
-  )
+  );
 
   const hasSelectedAMovie = useMemo(
     () => Object.keys(selectedMovie).length > 0,
     [selectedMovie]
-  )
+  );
 
   const displayComponent = useMemo(() => {
     if (favouriteMoviesIsVisible) {
@@ -174,18 +174,18 @@ function MovieCatalogue ({
             <MovieCard
               key={`${movie.imdbID}-${index}`}
               movie={movie}
-              variant={'favourites'}
+              variant={"favourites"}
               onClick={handleMovieCardClicked}
               onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
             />
           ))}
         </MoviesList>
-      )
+      );
     }
 
     if (
       !favouriteMoviesIsVisible &&
-      movieListVariation === 'card' &&
+      movieListVariation === "card" &&
       hasMoviesData
     ) {
       // prevent props overload
@@ -196,21 +196,21 @@ function MovieCatalogue ({
             <MovieCard
               key={`${movie.imdbID}-${index}`}
               movie={movie}
-              variant={'searchResults'}
+              variant={"searchResults"}
               onClick={handleMovieCardClicked}
               onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
             />
           ))}
         </MoviesList>
-      )
+      );
     }
 
     if (
       !favouriteMoviesIsVisible &&
-      movieListVariation === 'list' &&
+      movieListVariation === "list" &&
       hasMoviesData
     ) {
-      return <MovieTable movies={movieSearchResults} />
+      return <MovieTable movies={movieSearchResults} />;
     }
   }, [
     favouriteMovies,
@@ -219,8 +219,8 @@ function MovieCatalogue ({
     handleRemoveFromFavouritesClicked,
     hasMoviesData,
     movieListVariation,
-    movieSearchResults
-  ])
+    movieSearchResults,
+  ]);
 
   return (
     <BootstrapContainer>
@@ -243,7 +243,7 @@ function MovieCatalogue ({
                 </Form.Group>
               </Form>
               <Stack
-                style={{ display: 'flex', flexWrap: 'wrap', marginTop: 5 }}
+                style={{ display: "flex", flexWrap: "wrap", marginTop: 5 }}
                 direction="horizontal"
                 gap={2}
               >
@@ -257,15 +257,15 @@ function MovieCatalogue ({
                 </Button>
                 <Button
                   style={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis',
-                    minwidth: 50
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    minwidth: 50,
                   }}
                   variant={
                     favouriteMoviesIsVisible
-                      ? 'outline-primary'
-                      : 'outline-primary'
+                      ? "outline-primary"
+                      : "outline-primary"
                   }
                   onClick={handleFavouritesToggled}
                 >
@@ -273,20 +273,18 @@ function MovieCatalogue ({
                     ? backToSearchButtonText
                     : viewFavouritesButtonText}
                 </Button>
-                {hasMoviesData && !favouriteMoviesIsVisible
-                  ? (
+                {hasMoviesData && !favouriteMoviesIsVisible ? (
                   <ToggleControl
                     onChange={handleMovieListVariationChanged}
                     value={movieListVariation}
                     radioButtonOptions={[
-                      { name: 'Card', value: 'card' },
-                      { name: 'List', value: 'list' }
+                      { name: "Card", value: "card" },
+                      { name: "List", value: "list" },
                     ]}
                   />
-                    )
-                  : (
+                ) : (
                   <Container style={{ height: 50 }} />
-                    )}
+                )}
               </Stack>
             </Stack>
           </Col>
@@ -295,8 +293,8 @@ function MovieCatalogue ({
           <Col lg={9}>
             <Container
               style={{
-                display: 'flex',
-                alignItems: 'center'
+                display: "flex",
+                alignItems: "center",
               }}
             >
               {displayComponent}
@@ -315,23 +313,23 @@ function MovieCatalogue ({
         />
       )}
     </BootstrapContainer>
-  )
+  );
 }
 
 MovieCatalogue.defaultProps = {
-  placeholderText: 'Search through movies',
-  searchButtonText: 'Find',
-  viewFavouritesButtonText: 'Favourites',
-  backToSearchButtonText: 'Search Again',
-  formTitle: 'Find your favourite movies'
-}
+  placeholderText: "Search through movies",
+  searchButtonText: "Find",
+  viewFavouritesButtonText: "Favourites",
+  backToSearchButtonText: "Search Again",
+  formTitle: "Find your favourite movies",
+};
 
 MovieCatalogue.propTypes = {
   placeholderText: PropTypes.string,
   searchButtonText: PropTypes.string,
   viewFavouritesButtonText: PropTypes.string,
   backToSearchButtonText: PropTypes.string,
-  formTitle: PropTypes.string
-}
+  formTitle: PropTypes.string,
+};
 
-export default React.memo(MovieCatalogue)
+export default React.memo(MovieCatalogue);

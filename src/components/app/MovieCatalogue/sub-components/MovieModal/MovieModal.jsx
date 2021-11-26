@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./MovieModal.css";
-import imageNotFound from "../../../../../assets/images/image-not-found.png";
+import imageNotFound from "public/images/image-not-found.png";
 import Container from "../../../../global/Container";
 
 import { Modal as BootstrapModal, Image, Button } from "react-bootstrap";
