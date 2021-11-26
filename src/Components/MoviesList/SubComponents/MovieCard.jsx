@@ -66,9 +66,16 @@ function MovieCard({ movie, variant }) {
       />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>
-          released: {movie.Year} ({movie.Type})
-        </Card.Text>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Card.Text>{movie.Year}</Card.Text>
+          <Card.Text>({movie.Type})</Card.Text>
+        </div>
       </Card.Body>
     </Card>
   );
