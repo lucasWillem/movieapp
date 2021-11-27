@@ -22,7 +22,18 @@ const movieSearchModel = {
     )
       .then((response) => response.json())
       .then((result) => {
-        actions.storeMovieResults(result.Search);
+        const uniqueResults = [];
+
+        result.Search.forEach((movieResultItem) => {
+          if (
+            !uniqueResults.some(
+              (uniqueEntry) => uniqueEntry.imdbID === movieResultItem.imdbID
+            )
+          ) {
+            uniqueResults.push(movieResultItem);
+          }
+        });
+        actions.storeMovieResults(uniqueResults);
         actions.setLoaderVisibility(false);
 
         if (result.Response === "False") {
