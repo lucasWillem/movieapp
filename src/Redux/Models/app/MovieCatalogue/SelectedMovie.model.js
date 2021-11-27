@@ -8,7 +8,6 @@ const selectedMovieModel = {
   }),
 
   fetchAndStoreSelectedMovie: thunk((actions, payload, helpers) => {
-    actions.setLoaderVisibility(true);
     fetch(
       `https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=${payload}`,
       {
@@ -21,7 +20,6 @@ const selectedMovieModel = {
     )
       .then((response) => response.json())
       .then((result) => {
-        actions.setLoaderVisibility(false);
         actions.storeSelectedMovie(result);
         actions.setModalConfiguration({
           isVisible: true,

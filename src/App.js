@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { useStoreRehydrated } from "easy-peasy";
-import { Spinner } from "react-bootstrap";
+import { useStoreRehydrated, useStoreActions, useStoreState } from "easy-peasy";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navigator from "navigation/Navigator";
@@ -13,9 +12,21 @@ require("dotenv").config();
 function App() {
   const storeIsRehydrated = useStoreRehydrated();
 
+  const setLoaderVisibility = useStoreActions(
+    (actions) => actions.setLoaderVisibility
+  );
+
+  const isLoaderVisible = useStoreState((state) => state.isLoaderVisible);
+
+  useEffect(() => {
+    !storeIsRehydrated ? setLoaderVisibility(true) : setLoaderVisibility(false);
+  }, [setLoaderVisibility, storeIsRehydrated]);
+
   return (
     <div className="App">
-      {storeIsRehydrated ? (
+      {isLoaderVisible ? (
+        <LoadingDisplay />
+      ) : (
         <>
           <LoadingDisplay />
           <Alert />
@@ -23,17 +34,6 @@ function App() {
             <Navigator />
           </BrowserRouter>
         </>
-      ) : (
-        <div
-          style={{
-            marginTop: "5%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <Spinner animation="border" role="status" />
-        </div>
       )}
     </div>
   );
