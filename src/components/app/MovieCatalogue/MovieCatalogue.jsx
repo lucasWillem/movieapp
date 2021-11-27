@@ -64,10 +64,6 @@ function MovieCatalogue({
     (actions) => actions.removeFromFavouriteMovies
   );
 
-  const setAlertConfiguration = useStoreActions(
-    (actions) => actions.setAlertConfiguration
-  );
-
   const fetchAndStoreSelectedMovie = useStoreActions(
     (actions) => actions.fetchAndStoreSelectedMovie
   );
@@ -140,12 +136,8 @@ function MovieCatalogue({
   const handleRemoveFromFavouritesClicked = useCallback(
     (movie) => {
       removeFromFavouriteMovies(movie);
-      setAlertConfiguration({
-        isVisible: true,
-        message: "Item removed from Favourites",
-      });
     },
-    [removeFromFavouriteMovies, setAlertConfiguration]
+    [removeFromFavouriteMovies]
   );
 
   const hasMoviesData = useMemo(
@@ -166,6 +158,14 @@ function MovieCatalogue({
     [selectedMovie]
   );
 
+  const checkIfhasLikedMovie = useCallback(
+    (movie) =>
+      favouriteMovies.find(
+        (movieInList) => movieInList.imdbID === movie.imdbID
+      ) !== undefined,
+    [favouriteMovies]
+  );
+
   const displayComponent = useMemo(() => {
     if (favouriteMoviesIsVisible) {
       return (
@@ -176,7 +176,7 @@ function MovieCatalogue({
               movie={movie}
               variant={"favourites"}
               onClick={handleMovieCardClicked}
-              onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
+              onRemoveFromFavourites={handleRemoveFromFavouritesClicked}
             />
           ))}
         </MoviesList>
@@ -198,7 +198,9 @@ function MovieCatalogue({
               movie={movie}
               variant={"searchResults"}
               onClick={handleMovieCardClicked}
-              onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
+              onRemoveFromFavourites={handleRemoveFromFavouritesClicked}
+              onAddToFavourites={addToFavourites}
+              checkIfhasLikedMovie={checkIfhasLikedMovie}
             />
           ))}
         </MoviesList>
@@ -214,10 +216,15 @@ function MovieCatalogue({
         <MovieTable
           movies={movieSearchResults}
           onMovieSelected={handleMovieCardClicked}
+          onRemoveFromFavourites={handleRemoveFromFavouritesClicked}
+          onAddToFavourites={addToFavourites}
+          checkIfhasLikedMovie={checkIfhasLikedMovie}
         />
       );
     }
   }, [
+    addToFavourites,
+    checkIfhasLikedMovie,
     favouriteMovies,
     favouriteMoviesIsVisible,
     handleMovieCardClicked,
