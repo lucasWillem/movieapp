@@ -17,7 +17,9 @@ function MovieModal({
   return (
     <BootstrapModal show={isVisible} onHide={onModalHidden}>
       <BootstrapModal.Header closeButton>
-        <BootstrapModal.Title>{movie.Title}</BootstrapModal.Title>
+        <BootstrapModal.Title>
+          {movie.Title && movie.Title}
+        </BootstrapModal.Title>
       </BootstrapModal.Header>
       <>
         <Container
@@ -28,18 +30,24 @@ function MovieModal({
         >
           <Image
             fluid
-            src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
+            src={
+              movie.Poster && movie.Poster === "N/A"
+                ? imageNotFound
+                : movie.Poster
+            }
           />
         </Container>
 
         <BootstrapModal.Body>
-          {movie.Plot ? movie.Plot : "no plot information available"}
+          {movie.Plot && movie.Plot
+            ? movie.Plot
+            : "no plot information available"}
         </BootstrapModal.Body>
         <BootstrapModal.Body>
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> Genre:</p>
             <p>
-              {movie.Genre !== "N/A"
+              {movie.Genre && movie.Genre !== "N/A"
                 ? movie.Genre
                 : "no genre information available"}
             </p>
@@ -47,7 +55,7 @@ function MovieModal({
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> Released on:</p>
             <p>
-              {movie.Released !== "N/A"
+              {movie.Released && movie.Released !== "N/A"
                 ? movie.Released
                 : "no release date available"}
             </p>
@@ -55,7 +63,7 @@ function MovieModal({
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> Director:</p>{" "}
             <p>
-              {movie.Director !== "N/A"
+              {movie.Director && movie.Director !== "N/A"
                 ? movie.Director
                 : "no director name(s) available"}
             </p>
@@ -63,7 +71,7 @@ function MovieModal({
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> Writer(s):</p>
             <p>
-              {movie.Writer !== "N/A"
+              {movie.Writer && movie.Writer !== "N/A"
                 ? movie.Writer
                 : "no writer name(s) available"}
             </p>
@@ -71,7 +79,7 @@ function MovieModal({
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> Featuring:</p>
             <p>
-              {movie.Actors !== "N/A"
+              {movie.Actors && movie.Actors !== "N/A"
                 ? movie.Actors
                 : "no actor name(s) available"}
             </p>
@@ -79,7 +87,7 @@ function MovieModal({
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> Language(s):</p>{" "}
             <p>
-              {movie.Language !== "N/A"
+              {movie.Language && movie.Language !== "N/A"
                 ? movie.Language
                 : "no language information available"}
             </p>
@@ -87,7 +95,7 @@ function MovieModal({
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> Meta Score:</p>
             <p>
-              {movie.Metascore !== "N/A"
+              {movie.Metascore && movie.Metascore !== "N/A"
                 ? movie.Metascore
                 : "no meta rating available"}
             </p>
@@ -95,7 +103,7 @@ function MovieModal({
           <div className={"details-wrapper"}>
             <p className={"details-heading"}> IMDB:</p>
             <p>
-              {movie.imdbRating !== "N/A"
+              {movie.imdbRating && movie.imdbRating !== "N/A"
                 ? movie.imdbRating
                 : "no IMDB rating available"}
             </p>
