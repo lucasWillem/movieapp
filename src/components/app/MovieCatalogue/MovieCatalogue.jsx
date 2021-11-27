@@ -228,6 +228,7 @@ function MovieCatalogue({
       );
     }
   }, [
+    addToFavourites,
     checkIfhasLikedMovie,
     favouriteMovies,
     favouriteMoviesIsVisible,
