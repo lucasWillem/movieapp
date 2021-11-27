@@ -64,10 +64,6 @@ function MovieCatalogue({
     (actions) => actions.removeFromFavouriteMovies
   );
 
-  const setAlertConfiguration = useStoreActions(
-    (actions) => actions.setAlertConfiguration
-  );
-
   const fetchAndStoreSelectedMovie = useStoreActions(
     (actions) => actions.fetchAndStoreSelectedMovie
   );
@@ -140,12 +136,8 @@ function MovieCatalogue({
   const handleRemoveFromFavouritesClicked = useCallback(
     (movie) => {
       removeFromFavouriteMovies(movie);
-      setAlertConfiguration({
-        isVisible: true,
-        message: "Item removed from Favourites",
-      });
     },
-    [removeFromFavouriteMovies, setAlertConfiguration]
+    [removeFromFavouriteMovies]
   );
 
   const hasMoviesData = useMemo(
