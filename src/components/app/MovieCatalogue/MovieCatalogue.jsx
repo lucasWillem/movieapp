@@ -166,6 +166,14 @@ function MovieCatalogue({
     [selectedMovie]
   );
 
+  const checkIfhasLikedMovie = useCallback(
+    (movie) =>
+      favouriteMovies.find(
+        (movieInList) => movieInList.imdbID === movie.imdbID
+      ) !== undefined,
+    [favouriteMovies]
+  );
+
   const displayComponent = useMemo(() => {
     if (favouriteMoviesIsVisible) {
       return (
@@ -176,7 +184,7 @@ function MovieCatalogue({
               movie={movie}
               variant={"favourites"}
               onClick={handleMovieCardClicked}
-              onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
+              onRemoveFromFavourites={handleRemoveFromFavouritesClicked}
             />
           ))}
         </MoviesList>
@@ -198,7 +206,9 @@ function MovieCatalogue({
               movie={movie}
               variant={"searchResults"}
               onClick={handleMovieCardClicked}
-              onRemoveFromFavouritesClick={handleRemoveFromFavouritesClicked}
+              onRemoveFromFavourites={handleRemoveFromFavouritesClicked}
+              onAddToFavourites={addToFavourites}
+              checkIfhasLikedMovie={checkIfhasLikedMovie}
             />
           ))}
         </MoviesList>
@@ -218,6 +228,7 @@ function MovieCatalogue({
       );
     }
   }, [
+    checkIfhasLikedMovie,
     favouriteMovies,
     favouriteMoviesIsVisible,
     handleMovieCardClicked,
