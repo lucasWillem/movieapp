@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { Table, Image } from "react-bootstrap";
+import { HandThumbsUp, HandThumbsUpFill } from "react-bootstrap-icons";
 
 import "./MovieTable.css";
 import imageNotFound from "assets/images/image-not-found.png";
 
-function MovieTable({ movies, onMovieSelected }) {
+function MovieTable({
+  movies,
+  onMovieSelected,
+  onRemoveFromFavourites,
+  onAddToFavourites,
+  checkIfhasLikedMovie,
+}) {
+  const handleRemoveFromFavourites = useCallback(
+    (movie) => {
+      if (onRemoveFromFavourites) onRemoveFromFavourites(movie);
+    },
+    [onRemoveFromFavourites]
+  );
+
+  const handleAddToFavourites = useCallback(
+    (movie) => {
+      if (onAddToFavourites) onAddToFavourites(movie);
+    },
+    [onAddToFavourites]
+  );
+
   return (
     <Table className={"movie-table"} bordered hover>
       <tbody>
@@ -31,6 +52,21 @@ function MovieTable({ movies, onMovieSelected }) {
                   <p>{movie.Year}</p>
                   <p>({movie.Type})</p>
                 </div>
+                {checkIfhasLikedMovie && checkIfhasLikedMovie(movie) ? (
+                  <HandThumbsUpFill
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveFromFavourites(movie);
+                    }}
+                  />
+                ) : (
+                  <HandThumbsUp
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToFavourites(movie);
+                    }}
+                  />
+                )}
               </div>
             </td>
           </tr>
@@ -51,6 +87,9 @@ MovieTable.propTypes = {
     })
   ).isRequired,
   onMovieSelected: PropTypes.func.isRequired,
+  onRemoveFromFavourites: PropTypes.func,
+  onAddToFavourites: PropTypes.func,
+  checkIfhasLikedMovie: PropTypes.func,
 };
 
 export default React.memo(MovieTable);

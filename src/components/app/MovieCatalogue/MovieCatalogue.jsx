@@ -224,6 +224,9 @@ function MovieCatalogue({
         <MovieTable
           movies={movieSearchResults}
           onMovieSelected={handleMovieCardClicked}
+          onRemoveFromFavourites={handleRemoveFromFavouritesClicked}
+          onAddToFavourites={addToFavourites}
+          checkIfhasLikedMovie={checkIfhasLikedMovie}
         />
       );
     }
