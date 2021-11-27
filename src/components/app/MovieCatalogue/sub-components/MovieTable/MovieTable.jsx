@@ -39,19 +39,19 @@ function MovieTable({
             }}
             className={"movie-table-row"}
           >
-            <td>
+            <td className="movie-image-container">
               <Image
                 className={"movie-image"}
                 src={movie.Poster === "N/A" ? imageNotFound : movie.Poster}
               />
             </td>
-            <td>
-              <div>
-                <h6>{movie.Title}</h6>
-                <div className={"year-and-type-container"}>
-                  <p>{movie.Year}</p>
-                  <p>({movie.Type})</p>
-                </div>
+            <td className="movie-details-container">
+              <h6>{movie.Title}</h6>
+              <div className={"year-and-type-container"}>
+                <p>{movie.Year}</p>
+                <p>({movie.Type})</p>
+              </div>
+              <div className="toggle-favourites-container">
                 {checkIfhasLikedMovie && checkIfhasLikedMovie(movie) ? (
                   <HandThumbsUpFill
                     onClick={(e) => {
