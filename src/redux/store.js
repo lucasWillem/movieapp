@@ -1,6 +1,6 @@
 import { createStore, persist } from "easy-peasy";
 
-import models from "./models";
+import models from "./Models";
 
 const store = createStore(persist(models));
 
