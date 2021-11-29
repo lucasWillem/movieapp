@@ -24,6 +24,10 @@ const movieSearchModel = {
       .then((result) => {
         const uniqueResults = [];
 
+        if (result.Response === "False") {
+          throw new Error(result.Error);
+        }
+
         result.Search.forEach((movieResultItem) => {
           if (
             !uniqueResults.some(
@@ -35,10 +39,6 @@ const movieSearchModel = {
         });
         actions.storeMovieResults(uniqueResults);
         actions.setLoaderVisibility(false);
-
-        if (result.Response === "False") {
-          throw new Error(result.Error);
-        }
       })
       .catch((err) => {
         actions.setLoaderVisibility(false);
